@@ -1,10 +1,22 @@
+import { Fragment } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import Nav from './components/nav/Nav';
+import Home from './components/home/Home';
+
 function App() {
   return (
-    <div className="mx-auto pl-4 ">
-      <header className="mx-auto">
-        My header
-      </header>
-    </div>
+    <>
+      <Nav />
+      <Router>
+        <Switch>
+          <Route path="/" component={Home} />
+        </Switch>
+      </Router>
+    </>
   );
 }
 
