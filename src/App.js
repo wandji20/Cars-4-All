@@ -9,7 +9,7 @@ import Footer from './components/footer/Footer';
 
 function App() {
   return (
-    <div className="w-full h-full">
+    <main className="w-full h-full">
       <Router>
         <Nav />
         <Switch>
@@ -17,7 +17,7 @@ function App() {
         </Switch>
       </Router>
       <Footer />
-    </div>
+    </main>
   );
 }
 
