@@ -3,3 +3,23 @@
 @tailwind components;
 @tailwind utilities;
 /* stylelint-enable scss/at-rule-no-unknown */
+
+.nav-bar {
+  height: 10%;
+  border: 1px solid black;
+}
+.footer {
+  height: 7%;
+  border: 1px solid black;
+}
+
+.home {
+  height: 83%;
+  border: 1px solid red;
+}
+
+.nav-menu {
+  height: 83%;
+  border: 1px solid red;
+  top: 10%;
+}
