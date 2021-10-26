@@ -6,7 +6,7 @@ import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const NavMenu = (props) => {
   const { toggle, handleToggleNav } = props;
-  const pages = ['rental', 'market'];
+  const pages = ['rentals', 'markets'];
   const featuredCars = ['', 'Sedan', 'Suv & Crossover', 'Van & Bus', 'Truck'];
   const loggedIn = false;
 
@@ -38,7 +38,7 @@ const NavMenu = (props) => {
           {
               pages.map((page) => (
                 <li key={page}>
-                  <NavLink to="#" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                  <NavLink to={`/${page}`} onClick={() => { handleToggleNav(); resetToggles(); }}>
                     <span>{page}</span>
                   </NavLink>
                 </li>
@@ -47,7 +47,7 @@ const NavMenu = (props) => {
         </ul>
       </div>
 
-      <NavLink to="#" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
+      <NavLink to="/testimonials" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
         <span>Testimonial</span>
       </NavLink>
 
@@ -78,11 +78,11 @@ const NavMenu = (props) => {
         </ul>
       </div>
 
-      <NavLink to="#" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
+      <NavLink to="/more" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
         <span>More</span>
       </NavLink>
 
-      <NavLink to="#" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
+      <NavLink to="/contact" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
         <span>Contact</span>
       </NavLink>
 
@@ -98,16 +98,16 @@ const NavMenu = (props) => {
           className={toggleProfile ? 'ml-5 border-4 border-light-blue-500' : 'hidden'}
         >
           {
-            loggedIn
+            !loggedIn
             && (
             <>
               <li>
-                <NavLink to="#" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="/login" onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Login</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="#" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="sign_up" onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Signup</span>
                 </NavLink>
               </li>
@@ -116,15 +116,15 @@ const NavMenu = (props) => {
 
           }
           {
-            !loggedIn && (
+            loggedIn && (
             <>
               <li>
-                <NavLink to="#" onClick={() => { handleToggleNav(); resetToggles(); }}>
-                  <span>Profile</span>
+                <NavLink to="/profile" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                  <span>Account</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="#" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="/" onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Logout</span>
                 </NavLink>
               </li>

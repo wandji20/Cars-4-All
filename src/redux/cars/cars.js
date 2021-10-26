@@ -9,7 +9,6 @@ const getCarsIndex = () => async (dispatch) => {
     const server = await fetch('http://localhost:3001/cars');
     const response = await server.json();
     dispatch(carsIndex(response));
-    console.log(response);
   } catch (e) {
     console.log(e);
   }

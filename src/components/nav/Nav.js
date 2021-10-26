@@ -11,7 +11,7 @@ const Nav = () => {
   };
   return (
     <nav id="" className="nav-bar bg-gray-500 fixed-inset-0 flex justify-between items-center">
-      <NavLink to="#" className="block h-auto pl-2">
+      <NavLink to="/" className="block h-auto pl-2">
         <span className="">
           cars-4-all
         </span>

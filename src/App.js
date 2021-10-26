@@ -8,7 +8,15 @@ import {
 import Nav from './components/nav/Nav';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
+import Rentals from './components/rentals/Rentals';
+import markets from './components/markets/markets';
 import { getCarsIndex } from './redux/cars/cars';
+import Contact from './components/contact/Contact';
+import Reviews from './components/testimonial/Reviews';
+import More from './components/more/More';
+import Login from './components/user/Login';
+import SignupForm from './components/user/SignupForm';
+import Profile from './components/user/Profile';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -22,7 +30,15 @@ const App = () => {
       <Router>
         <Nav />
         <Switch>
-          <Route path="/" component={Home} />
+          <Route exact path="/rentals" component={Rentals} />
+          <Route exact path="/markets" component={markets} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/cantact" component={Contact} />
+          <Route exact path="/testimonials" component={Reviews} />
+          <Route exact path="/more" component={More} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/sign_up" component={SignupForm} />
+          <Route exact path="/profile" component={Profile} />
         </Switch>
       </Router>
       <Footer />
