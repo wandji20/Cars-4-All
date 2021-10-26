@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,8 +8,15 @@ import {
 import Nav from './components/nav/Nav';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
+import { getCarsIndex } from './redux/cars/cars';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCarsIndex());
+  }, []);
+
   return (
     <main className="w-full h-full">
       <Router>
@@ -19,6 +28,6 @@ function App() {
       <Footer />
     </main>
   );
-}
+};
 
 export default App;
