@@ -15,13 +15,13 @@ const Home = () => {
       <div className="m-auto w-4/5  border-4 border-light-blue-500 border-opacity-100 text-center px-2 py-4">
         <h1 className=" my-7">FIND YOUR DREAM CARS</h1>
         <p className="my-4">{messages[number].text}</p>
-        <NavLink to="#" className="block px-2 py-1 mb-4 mt-6 border-0 rounded bg-gray-700">
+        <NavLink to="rentals" className="block px-2 py-1 mb-4 mt-6 border-0 rounded bg-gray-700">
           <span className="inline-block mr-4">
             <FontAwesomeIcon icon={faCalendarAlt} />
           </span>
           <h1 className="inline-block m-auto">REQUEST CAR</h1>
         </NavLink>
-        <NavLink to="#" className="block px-2 py-1 my-4 border-0 rounded bg-gray-700">
+        <NavLink to="markets" className="block px-2 py-1 my-4 border-0 rounded bg-gray-700">
           <span className="inline-block mr-4">
             <FontAwesomeIcon icon={faCartPlus} />
           </span>

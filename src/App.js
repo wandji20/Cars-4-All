@@ -10,13 +10,13 @@ import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
 import Rentals from './components/rentals/Rentals';
 import markets from './components/markets/markets';
-import { getCarsIndex } from './redux/cars/cars';
 import Contact from './components/contact/Contact';
 import Reviews from './components/testimonial/Reviews';
 import More from './components/more/More';
 import Login from './components/user/Login';
 import SignupForm from './components/user/SignupForm';
 import Profile from './components/user/Profile';
+import { getCarsIndex } from './redux/cars/carActions';
 
 const App = () => {
   const dispatch = useDispatch();

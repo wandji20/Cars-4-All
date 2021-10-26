@@ -1,18 +1,4 @@
-const CARS_INDEX = 'cars/cars';
-
-const carsIndex = (cars) => ({
-  type: CARS_INDEX, payload: cars,
-});
-
-const getCarsIndex = () => async (dispatch) => {
-  try {
-    const server = await fetch('http://localhost:3001/cars');
-    const response = await server.json();
-    dispatch(carsIndex(response));
-  } catch (e) {
-    console.log(e);
-  }
-};
+import { CARS_INDEX } from './carActions';
 
 const initialState = {
   rentals: {},
@@ -32,4 +18,3 @@ const carReducer = (state = initialState, action) => {
 };
 
 export default carReducer;
-export { getCarsIndex, carsIndex };
