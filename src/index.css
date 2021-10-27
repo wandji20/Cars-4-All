@@ -13,11 +13,13 @@
   border: 1px solid black;
 }
 
-.home {
+.home,
+.signup-form {
   height: 83%;
   border: 1px solid red;
 }
 
+.signup-form,
 .nav-menu {
   height: 83%;
   border: 1px solid red;

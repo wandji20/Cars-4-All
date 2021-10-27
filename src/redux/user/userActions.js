@@ -1,3 +1,4 @@
+/* eslint-disable */
 import BASE_URL from '../constants';
 import { errorAction } from '../errors/errors';
 
@@ -7,12 +8,25 @@ const userCreateAction = (data) => ({
   type: USER_CREATE, payload: data,
 });
 
-export const postUser = (user) => async (dispatch) => {
+export const postUser = (data) => async (dispatch) => {
+  const user = {
+    first_name: data.first,
+    last_name: data.last,
+    email: data.email,
+    telephone: data.telephone,
+    user_name: data.user,
+    password: data.password,
+    password_confirmation: data.password_confirmation,
+  };
+
   try {
-    const server = await fetch(`${BASE_URL}/users`, {
+    const server = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       mode: 'cors',
-      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user }),
     });
     const response = await server.json();
     console.log(response);

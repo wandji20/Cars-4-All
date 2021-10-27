@@ -6,7 +6,7 @@ import userReducer from './user/user';
 const rootReducer = combineReducers({
   cars: carReducer,
   user: userReducer,
-  error: errorReducer,
+  errors: errorReducer,
 });
 
 export default rootReducer;
