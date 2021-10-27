@@ -5,8 +5,8 @@ import Error from '../errors/Error';
 import { postUser } from '../../redux/user/userActions';
 
 const SignupForm = () => {
-  const myErrors = useSelector((state) => state.errors);
-
+  const myErrors = useSelector((state) => state.errors.errors);
+  console.log(myErrors);
   const [userObj, setUserObj] = useState({
     first: '',
     last: '',
@@ -114,7 +114,7 @@ const SignupForm = () => {
             // required
           />
         </label>
-        <label className="block w-full my-1" htmlFor="telphone">
+        {/* <label className="block w-full my-1" htmlFor="telphone">
           <span className="block w-full">Telephone</span>
           <input
             autoComplete="off"
@@ -126,7 +126,7 @@ const SignupForm = () => {
             onChange={handleChange}
           />
 
-        </label>
+        </label> */}
         <label className="block w-full my-1" htmlFor="password">
           <span className="block w-full">Password</span>
           {

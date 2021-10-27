@@ -1,4 +1,3 @@
-/* eslint-disable */
 import BASE_URL from '../constants';
 import { errorAction } from '../errors/errors';
 
@@ -18,7 +17,7 @@ export const postUser = (data) => async (dispatch) => {
     password: data.password,
     password_confirmation: data.password_confirmation,
   };
-
+  dispatch(errorAction({}));
   try {
     const server = await fetch(`${BASE_URL}/signup`, {
       method: 'POST',
@@ -29,14 +28,14 @@ export const postUser = (data) => async (dispatch) => {
       body: JSON.stringify({ user }),
     });
     const response = await server.json();
-    console.log(response);
+
     if (response.Authorization) {
       localStorage.setItem('token', response);
       dispatch(userCreateAction(response.user_name));
     } else {
-      dispatch(errorAction(response.error));
+      dispatch(errorAction(response.errors));
     }
   } catch (e) {
-    console.log(e);
+    dispatch(errorAction(e.message));
   }
 };
