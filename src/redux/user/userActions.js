@@ -1,5 +1,6 @@
 import BASE_URL from '../constants';
-import { errorAction } from '../errors/errors';
+import { errorAction, notificationAction } from '../errors/errors';
+import { setToken } from '../../helpers/token';
 
 export const USER_CREATE = 'user/create';
 
@@ -15,8 +16,9 @@ export const postUser = (data) => async (dispatch) => {
     telephone: data.telephone,
     user_name: data.user,
     password: data.password,
-    password_confirmation: data.password_confirmation,
+    password_confirmation: data.confirmation,
   };
+  console.log(user);
   dispatch(errorAction({}));
   try {
     const server = await fetch(`${BASE_URL}/signup`, {
@@ -30,12 +32,37 @@ export const postUser = (data) => async (dispatch) => {
     const response = await server.json();
 
     if (response.Authorization) {
-      localStorage.setItem('token', response);
-      dispatch(userCreateAction(response.user_name));
+      setToken(response.Authorization);
+      dispatch(userCreateAction({ userName: response.user_name, loggedIn: true }));
     } else {
       dispatch(errorAction(response.errors));
     }
   } catch (e) {
-    dispatch(errorAction(e.message));
+    dispatch(notificationAction(e.message));
+  }
+};
+
+export const postAuthentication = (authentication) => async (dispatch) => {
+  dispatch(errorAction({}));
+  try {
+    const server = await fetch(`${BASE_URL}/login`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ authentication }),
+    });
+
+    const response = await server.json();
+
+    if (response.Authorization) {
+      setToken(response.Authorization);
+      dispatch(userCreateAction({ userName: response.user_name, loggedIn: true }));
+    } else {
+      dispatch(notificationAction(response.message));
+    }
+  } catch (e) {
+    dispatch(notificationAction(e.message));
   }
 };

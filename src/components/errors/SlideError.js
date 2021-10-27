@@ -8,7 +8,7 @@ const SlideError = ({ message }) => (
 );
 
 SlideError.propTypes = {
-  message: PropTypes.string,
+  message: PropTypes.string.isRequired,
 };
 
 export default SlideError;

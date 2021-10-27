@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { postAuthentication } from '../../redux/user/userActions';
 
 const Login = () => {
+  const loggedIn = useSelector((state) => state.user.loggedIn);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+
+  const history = useHistory();
+  if (loggedIn) {
+    history.goBack();
+  }
+
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(postAuthentication({ user_name: userName, password }));
     setPassword('');
     setUserName('');
   };
+
   return (
     <section className="signup-form flex flex-col justify-center pt-7">
       <div className="mx-auto text-center">
