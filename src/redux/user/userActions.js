@@ -3,9 +3,14 @@ import { errorAction, notificationAction } from '../errors/errors';
 import { setToken } from '../../helpers/token';
 
 export const USER_CREATE = 'user/create';
+export const LOG_OUT = 'user/logout';
 
-const userCreateAction = (data) => ({
+export const userCreateAction = (data) => ({
   type: USER_CREATE, payload: data,
+});
+
+export const logOutAction = () => ({
+  type: LOG_OUT,
 });
 
 export const postUser = (data) => async (dispatch) => {
@@ -32,8 +37,8 @@ export const postUser = (data) => async (dispatch) => {
     const response = await server.json();
 
     if (response.Authorization) {
-      setToken(response.Authorization);
-      dispatch(userCreateAction({ userName: response.user_name, loggedIn: true }));
+      setToken(response.Authorization, response.user_name);
+      dispatch(userCreateAction({ loggedIn: true }));
     } else {
       dispatch(errorAction(response.errors));
     }
@@ -57,7 +62,7 @@ export const postAuthentication = (authentication) => async (dispatch) => {
     const response = await server.json();
 
     if (response.Authorization) {
-      setToken(response.Authorization);
+      setToken(response.Authorization, response.user_name);
       dispatch(userCreateAction({ userName: response.user_name, loggedIn: true }));
     } else {
       dispatch(notificationAction(response.message));

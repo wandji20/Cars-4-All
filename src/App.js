@@ -17,11 +17,19 @@ import Login from './components/user/Login';
 import SignupForm from './components/user/SignupForm';
 import Profile from './components/user/Profile';
 import { getCarsIndex } from './redux/cars/carActions';
+import { getToken } from './helpers/token';
+import { userCreateAction } from './redux/user/userActions';
 
 const App = () => {
   const dispatch = useDispatch();
 
+  const token = getToken();
+  console.log(token);
+
   useEffect(() => {
+    if (token && token !== '') {
+      dispatch(userCreateAction({ loggedIn: true }));
+    }
     dispatch(getCarsIndex());
   }, []);
 

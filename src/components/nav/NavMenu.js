@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { logOutAction } from '../../redux/user/userActions';
+import { setToken } from '../../helpers/token';
 
 const NavMenu = (props) => {
   const { toggle, handleToggleNav } = props;
   const pages = ['rentals', 'markets'];
   const featuredCars = ['', 'Sedan', 'Suv & Crossover', 'Van & Bus', 'Truck'];
-  const loggedIn = false;
+
+  const dispatch = useDispatch();
+  const loggedIn = useSelector((state) => state.user.loggedIn);
 
   const [togglePages, setTogglePages] = useState(false);
   const [toggleFeaturedCars, setToggleFeaturedCars] = useState(false);
@@ -124,7 +129,15 @@ const NavMenu = (props) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink
+                  to="/"
+                  onClick={() => {
+                    handleToggleNav();
+                    resetToggles();
+                    dispatch(logOutAction());
+                    setToken('');
+                  }}
+                >
                   <span>Logout</span>
                 </NavLink>
               </li>

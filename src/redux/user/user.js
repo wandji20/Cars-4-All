@@ -1,4 +1,4 @@
-import { USER_CREATE } from './userActions';
+import { USER_CREATE, LOG_OUT } from './userActions';
 
 const initialState = {
   loggedIn: false,
@@ -12,6 +12,10 @@ const userReducer = (state = initialState, action) => {
         ...state, ...action.payload,
       };
 
+    case LOG_OUT:
+      return {
+        ...state, loggedIn: false, userName: '',
+      };
     default:
       return {
         ...state,
