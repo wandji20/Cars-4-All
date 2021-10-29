@@ -1,9 +1,20 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import ProfileInfo from './ProfileInfo';
 
-const Profile = () => (
-  <div>
-    User Profile
-  </div>
-);
+const Profile = () => {
+  const loggedIn = useSelector((state) => state.user.loggedIn);
+  console.log(loggedIn);
+  const history = useHistory();
+  console.log(history);
+  if (!loggedIn) {
+    history.goBack();
+  }
+
+  return (
+    <ProfileInfo />
+  );
+};
 
 export default Profile;

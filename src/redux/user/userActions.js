@@ -1,9 +1,11 @@
 import BASE_URL from '../constants';
 import { errorAction, notificationAction } from '../errors/errors';
-import { setToken } from '../../helpers/token';
+import { getToken, setToken } from '../../helpers/token';
 
 export const USER_CREATE = 'user/create';
 export const LOG_OUT = 'user/logout';
+// export const LOG_IN = 'user/log';
+// export const SHOW_USER = 'user/show';
 
 export const userCreateAction = (data) => ({
   type: USER_CREATE, payload: data,
@@ -12,6 +14,10 @@ export const userCreateAction = (data) => ({
 export const logOutAction = () => ({
   type: LOG_OUT,
 });
+
+// export const userShowAction = (user) => ({
+//   type: SHOW_USER, payload: user,
+// });
 
 export const postUser = (data) => async (dispatch) => {
   const user = {
@@ -23,7 +29,7 @@ export const postUser = (data) => async (dispatch) => {
     password: data.password,
     password_confirmation: data.confirmation,
   };
-  console.log(user);
+
   dispatch(errorAction({}));
   try {
     const server = await fetch(`${BASE_URL}/signup`, {
@@ -63,7 +69,29 @@ export const postAuthentication = (authentication) => async (dispatch) => {
 
     if (response.Authorization) {
       setToken(response.Authorization, response.user_name);
-      dispatch(userCreateAction({ userName: response.user_name, loggedIn: true }));
+      dispatch(userCreateAction({ loggedIn: true }));
+    } else {
+      dispatch(notificationAction(response.message));
+    }
+  } catch (e) {
+    dispatch(notificationAction(e.message));
+  }
+};
+
+export const showUser = () => async (dispatch) => {
+  try {
+    const token = getToken();
+    const server = await fetch(`${BASE_URL}/profile`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: token,
+      },
+    });
+    const response = await server.json();
+
+    if (response.user) {
+      dispatch(userCreateAction({ user: response.user }));
     } else {
       dispatch(notificationAction(response.message));
     }

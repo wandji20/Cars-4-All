@@ -2,7 +2,7 @@ import { USER_CREATE, LOG_OUT } from './userActions';
 
 const initialState = {
   loggedIn: false,
-  userName: '',
+  user: {},
 };
 
 const userReducer = (state = initialState, action) => {
@@ -16,6 +16,12 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state, loggedIn: false, userName: '',
       };
+    // case SHOW_USER: {
+    //   console.log(action.payload);
+    //   return {
+    //     ...state, user: action.payload,
+    //   };
+    // }
     default:
       return {
         ...state,

@@ -26,10 +26,11 @@ const App = () => {
   const token = getToken();
   console.log(token);
 
+  if (token && token !== '') {
+    console.log('here');
+    dispatch(userCreateAction({ loggedIn: true }));
+  }
   useEffect(() => {
-    if (token && token !== '') {
-      dispatch(userCreateAction({ loggedIn: true }));
-    }
     dispatch(getCarsIndex());
   }, []);
 
