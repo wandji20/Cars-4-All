@@ -17,9 +17,9 @@ const CarModal = () => {
   const loggedIn = useSelector((state) => state.user.loggedIn);
 
   const options = {
-    new: <CarForm />,
+    new_car: <CarForm />,
     detail: <CarInfo />,
-    edit: <UpdateCarForm />,
+    edit_car: <UpdateCarForm />,
   };
 
   const back = () => {
