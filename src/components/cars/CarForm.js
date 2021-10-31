@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { postCarsCreate } from '../../redux/cars/carActions';
 import Error from '../errors/Error';
 
 const CarForm = () => {
@@ -15,15 +17,15 @@ const CarForm = () => {
     manufacturer: '',
     model: '',
     location: '',
-    category: categories[0].id,
-    // priceRent: 0,
+    category_id: categories[0].id,
     price: 0,
+    mileage: 0,
+    year: 2002,
     group: '',
-    newCategory: '',
-    addCategory: false,
   });
 
   const [images, setImages] = useState({});
+
   const handleImageChange = (e) => {
     setImages(e.target.files);
   };
@@ -36,33 +38,37 @@ const CarForm = () => {
     }));
   };
 
-  // const resetCarObj = () => {
-  //   setUserObj((state) => ({
-  //     ...state,
-  //     manufacturer: '',
-  //     model: '',
-  //     location: '',
-  //     category: '',
-  //     priceRent: '',
-  //     priceSale: '',
-  //     group: '',
-  //     newCategory: '',
-  //   }));
-  // };
+  const resetCarObj = () => {
+    setCarObj((state) => ({
+      ...state,
+      manufacturer: '',
+      model: '',
+      location: '',
+      category_id: null,
+      price: 0,
+      mileage: 0,
+      group: '',
+      year: 2002,
+    }));
+  };
 
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log(carObj);
+    e.preventDefault();
+    dispatch(postCarsCreate(carObj, history));
     console.log(images);
+    resetCarObj();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="px-4 flex flex-col justify-around h-full">
+    <form onSubmit={handleSubmit} className="px-4 py-2 flex flex-col">
       <label className="block w-full my-1" htmlFor="manufacturer">
         <span className="block w-full">Manufacturer</span>
         {
-            myErrors.manufacturer && <Error title="Manufacturer" message={myErrors.manufacturer[0]} />
-          }
+          myErrors.manufacturer && <Error title="Manufacturer" message={myErrors.manufacturer[0]} />
+        }
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="text"
@@ -76,8 +82,8 @@ const CarForm = () => {
       <label className="block w-full my-1" htmlFor="model">
         <span className="block w-full">Model</span>
         {
-            myErrors.model && <Error title="model" message={myErrors.model[0]} />
-          }
+          myErrors.model && <Error title="Model" message={myErrors.model[0]} />
+        }
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="text"
@@ -91,8 +97,8 @@ const CarForm = () => {
       <label className="block w-full my-1" htmlFor="location">
         <span className="block w-full">Location</span>
         {
-            myErrors.location && <Error title="location" message={myErrors.location[0]} />
-          }
+          myErrors.location && <Error title="Location" message={myErrors.location[0]} />
+        }
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="text"
@@ -103,39 +109,51 @@ const CarForm = () => {
           required
         />
       </label>
-
-      <label htmlFor="category" className="block w-full my-1">
-        <span className="block w-full">Category</span>
-        {
+      <div>
+        <label htmlFor="category" className="inline-block w-1/2 my-1 pr-1">
+          <span className="block w-full">Category</span>
+          {
           myErrors.category && <Error title="Category" message={myErrors.category[0]} />
         }
-        <select
-          id="category"
-          name="category"
-          className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
-          onChange={handleChange}
-        >
-          {
+          <select
+            id="category"
+            name="category_id"
+            className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
+            onChange={handleChange}
+          >
+            {
             categories.map((category) => (
               <option key={category.id} value={category.id} className="w-full">
                 {category.name}
               </option>
             ))
           }
-        </select>
-        {/* <button
-          type="submit"
-          className="w-max block text-xs"
-          onClick
-        >
-          Add a new category
-        </button> */}
-      </label>
+          </select>
+        </label>
+
+        <label className="inline-block w-1/2 my-1 pl-1" htmlFor="location">
+          <span className="block w-full">Year</span>
+          {
+          myErrors.year && <Error title="Year" message={myErrors.year[0]} />
+        }
+          <input
+            className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
+            type="number"
+            id="year"
+            name="year"
+            value={carObj.year}
+            min={2002}
+            max={2021}
+            onChange={handleChange}
+            required
+          />
+        </label>
+      </div>
 
       <label className="block w-full my-1 flex flex-wrap" htmlFor="group">
         <span className="block w-full">Group</span>
         {
-          myErrors.group && <Error title="group" message={myErrors.group[0]} />
+          myErrors.group && <Error title="Group" message={myErrors.group[0]} />
         }
         <span className="block w-1/2 flex items-center">
           <input
@@ -169,8 +187,8 @@ const CarForm = () => {
           }
         </span>
         {
-            myErrors.price && <Error title="price" message={myErrors.price[0]} />
-          }
+          myErrors.price && <Error title="Price" message={myErrors.price[0]} />
+        }
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="number"
@@ -182,11 +200,27 @@ const CarForm = () => {
         />
       </label>
 
+      <label className="block w-full my-1" htmlFor="mileage">
+        <span className="block w-full">
+          Mileage(Km)
+        </span>
+        {
+          myErrors.mileage && <Error title="mileage" message={myErrors.mileage[0]} />
+        }
+        <input
+          className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
+          type="number"
+          id="mileage"
+          name="mileage"
+          value={carObj.mileage}
+          onChange={handleChange}
+          required
+        />
+      </label>
+
       <label className="block w-full my-1" htmlFor="images">
         <span className="block w-full">Upload Photos</span>
-        {/* {
-          myErrors.images && <Error title="location" message={myErrors.images[0]} />
-        } */}
+
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="file"

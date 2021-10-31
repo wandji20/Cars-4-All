@@ -1,4 +1,4 @@
-import { CARS_INDEX } from './carActions';
+import { CARS_INDEX, CARS_CREATE } from './carActions';
 
 const initialState = {
   rentals: {},
@@ -12,8 +12,20 @@ const carReducer = (state = initialState, action) => {
       return { ...state, ...action.payload };
     }
 
-    default:
+    case CARS_CREATE: {
+      const car = action.payload;
+      if (car.group === 'rent') {
+        return { ...state, rentals: { ...state.rentals, [car.id]: car } };
+      }
+      if (car.group === 'sale') {
+        return { ...state, sales: { ...state.sales, [car.id]: car } };
+      }
+      return { ...state };
+    }
+
+    default: {
       return state;
+    }
   }
 };
 

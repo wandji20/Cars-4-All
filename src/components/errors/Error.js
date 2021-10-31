@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Error = ({ title, message }) => (
-  <p className="text-red-500 text-xs">
+  <p className="text-red-500 text-xs w-full">
     {`${title} ${message}`}
   </p>
 );

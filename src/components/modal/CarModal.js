@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -26,7 +27,7 @@ const CarModal = () => {
   };
 
   if (!loggedIn) {
-    console.log(location, history, Redirect);
+    // console.log(location, history, Redirect);
     // return <Redirect to="/login" />;
   }
 
@@ -40,7 +41,7 @@ const CarModal = () => {
         >
           <span><FontAwesomeIcon icon={faWindowClose} /></span>
         </button>
-        <div className="bg-gray-100 absolute top-8 bottom-0 inset-x-0">
+        <div className="bg-gray-100 absolute top-8 bottom-0 inset-x-0 overflow-y-auto">
           {
             options[option] ? options[option] : <p className="">Invalid Url</p>
           }
