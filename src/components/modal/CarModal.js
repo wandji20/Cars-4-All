@@ -31,7 +31,7 @@ const CarModal = () => {
   }
 
   return (
-    <div className="absolute inset-0 z-10 bg-transparent">
+    <section className="absolute inset-0 z-10 bg-transparent">
       <div className="absolute inset-4  bg-gray-300">
         <button
           type="button"
@@ -46,7 +46,7 @@ const CarModal = () => {
           }
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
