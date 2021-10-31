@@ -1,12 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import Cars from '../cars/Cars';
 
-const Rentals = () => {
-  const cars = useSelector((state) => state.cars.rentals);
-  return (
-    <Cars rentals={cars} />
-  );
-};
+const Rentals = () => (
+  <div>
+    All Rentals List
+  </div>
+);
 
 export default Rentals;

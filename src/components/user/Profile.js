@@ -5,9 +5,7 @@ import ProfileInfo from './ProfileInfo';
 
 const Profile = () => {
   const loggedIn = useSelector((state) => state.user.loggedIn);
-  console.log(loggedIn);
   const history = useHistory();
-  console.log(history);
   if (!loggedIn) {
     history.goBack();
   }

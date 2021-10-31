@@ -1,3 +1,5 @@
+/* eslint-disable react/no-children-prop */
+
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -8,7 +10,7 @@ import {
 import Nav from './components/nav/Nav';
 import Home from './components/home/Home';
 import Footer from './components/footer/Footer';
-import Rentals from './components/rentals/Rentals';
+import RentalCars from './components/rentals/RentalCars';
 import markets from './components/markets/markets';
 import Contact from './components/contact/Contact';
 import Reviews from './components/testimonial/Reviews';
@@ -19,15 +21,14 @@ import Profile from './components/user/Profile';
 import { getCarsIndex } from './redux/cars/carActions';
 import { getToken } from './helpers/token';
 import { userCreateAction } from './redux/user/userActions';
+import Modal from './components/modal/CarModal';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const token = getToken();
-  console.log(token);
 
   if (token && token !== '') {
-    console.log('here');
     dispatch(userCreateAction({ loggedIn: true }));
   }
   useEffect(() => {
@@ -39,7 +40,7 @@ const App = () => {
       <Router>
         <Nav />
         <Switch>
-          <Route exact path="/rentals" component={Rentals} />
+          <Route exact path="/rentals" component={RentalCars} />
           <Route exact path="/markets" component={markets} />
           <Route exact path="/" component={Home} />
           <Route exact path="/cantact" component={Contact} />
@@ -49,6 +50,7 @@ const App = () => {
           <Route exact path="/sign_up" component={SignupForm} />
           <Route exact path="/profile" component={Profile} />
         </Switch>
+        <Route exact path={['/profile/:option', '/cars/:option']} component={Modal} />
       </Router>
       <Footer />
     </main>
