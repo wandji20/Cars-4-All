@@ -1,8 +1,10 @@
 import { getToken } from '../../helpers/token';
+import BASE_URL from '../constants';
 import { errorAction, notificationAction } from '../errors/errors';
 
 const CARS_INDEX = 'cars/cars';
 const CARS_CREATE = 'cars/create';
+const CARS_SHOW = 'cars/show';
 
 const carsIndex = (cars) => ({
   type: CARS_INDEX, payload: cars,
@@ -10,6 +12,10 @@ const carsIndex = (cars) => ({
 
 const carsCreate = (car) => ({
   type: CARS_CREATE, payload: car,
+});
+
+const carsShow = (car) => ({
+  type: CARS_SHOW, payload: car,
 });
 
 const getCarsIndex = () => async (dispatch) => {
@@ -48,6 +54,18 @@ const postCarsCreate = (car, history) => async (dispatch) => {
   }
 };
 
+const getCarShow = (id) => async (dispatch) => {
+  const token = getToken();
+  dispatch(errorAction({}));
+  try {
+    const server = await fetch(`${BASE_URL}/cars/${id}`, { headers: { Authorization: token } });
+    const response = await server.json();
+    dispatch(carsShow(response.car));
+  } catch (e) {
+    dispatch(notificationAction(e.message));
+  }
+};
+
 export {
-  getCarsIndex, CARS_INDEX, postCarsCreate, CARS_CREATE,
+  getCarsIndex, CARS_INDEX, postCarsCreate, CARS_CREATE, CARS_SHOW, getCarShow,
 };

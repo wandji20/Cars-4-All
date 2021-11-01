@@ -22,6 +22,8 @@ import Modal from './components/modal/CarModal';
 import { getCarsIndex } from './redux/cars/carActions';
 import { getToken } from './helpers/token';
 import { userCreateAction } from './redux/user/userActions';
+// import FooterNav from './components/footer/FooterNav';
+import CarInfo from './components/cars/CarInfo';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -50,9 +52,11 @@ const App = () => {
           <Route exact path="/sign_up" component={SignupForm} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/cars" component={Cars} />
+          <Route exact path="/cars/:id" component={CarInfo} />
         </Switch>
-        <Route exact path={['/profile/:option', '/cars/:option']} component={Modal} />
+        <Route exact path={['/profile/:option']} component={Modal} />
       </Router>
+      {/* <FooterNav /> */}
     </main>
   );
 };

@@ -1,4 +1,4 @@
-import { CARS_INDEX, CARS_CREATE } from './carActions';
+import { CARS_INDEX, CARS_CREATE, CARS_SHOW } from './carActions';
 
 const initialState = {
   rentals: {},
@@ -21,6 +21,12 @@ const carReducer = (state = initialState, action) => {
         return { ...state, sales: { ...state.sales, [car.id]: car } };
       }
       return { ...state };
+    }
+
+    case CARS_SHOW: {
+      return {
+        ...state, car: action.payload,
+      };
     }
 
     default: {

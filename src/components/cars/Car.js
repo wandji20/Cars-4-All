@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import mercedez from '../../assets/mercedesbenz_Classe_C1.jpg';
 
 const Car = ({ car }) => {
   console.log(car);
   const {
-    location, group, manufacturer, model, year, price,
+    location, group, manufacturer, model, year, price, id,
   } = car;
   const style = {
     backgroundImage: `url(${mercedez})`,
@@ -15,9 +16,11 @@ const Car = ({ car }) => {
     <article style={style} className="h-52 flex flex-col justify-between bg-cover text-white my-2">
 
       <p className="p-2 flex justify-between">
-        <button type="button" className="bg-green-500 px-1">
-          More
-        </button>
+        <NavLink to={`cars/${id}`}>
+          <button type="button" className="bg-green-500 px-1">
+            More
+          </button>
+        </NavLink>
         <span className="inline-block">
           { group === 'rent' ? 'Available' : location }
         </span>
