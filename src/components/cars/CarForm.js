@@ -22,6 +22,8 @@ const CarForm = () => {
     mileage: 0,
     year: 2002,
     group: '',
+    transmission: '',
+    horse_power: 0,
   });
 
   const [images, setImages] = useState({});
@@ -48,6 +50,8 @@ const CarForm = () => {
       price: 0,
       mileage: 0,
       group: '',
+      transmission: '',
+      horse_power: 0,
       year: 2002,
     }));
   };
@@ -180,6 +184,48 @@ const CarForm = () => {
         </span>
       </label>
 
+      <label className="block w-full my-1 flex flex-wrap" htmlFor="transmission">
+        <span className="block w-full">Transmission</span>
+        {
+          myErrors.transmission && <Error title="Transmission" message={myErrors.transmission[0]} />
+        }
+        <span className="block w-1/3 flex items-center justify-center">
+          <input
+            className="inline-block mr-2 h-9"
+            type="radio"
+            id="transmission"
+            name="transmission"
+            value="Automatic"
+            onChange={handleChange}
+            required
+          />
+          <span className="inline-block">Automatic</span>
+        </span>
+        <span className="block w-1/3 flex items-center">
+          <input
+            className="inline-block mr-2 h-9"
+            type="radio"
+            id="transmission"
+            name="transmission"
+            value="Manual"
+            onChange={handleChange}
+          />
+          <span className="inline-block">Manual</span>
+        </span>
+        <span className="block w-1/3 flex items-center">
+          <input
+            className="inline-block mr-2 h-9"
+            type="radio"
+            id="transmission"
+            name="transmission"
+            value="Automatic/Manual"
+            onChange={handleChange}
+          />
+          <span className="inline-block">Both</span>
+        </span>
+
+      </label>
+
       <label className="block w-full my-1" htmlFor="price">
         <span className="block w-full">
           {
@@ -218,6 +264,23 @@ const CarForm = () => {
         />
       </label>
 
+      <label className="block w-full my-1" htmlFor="horse_power">
+        <span className="block w-full">
+          Horse Power(hp)
+        </span>
+        {
+          myErrors.horse_power && <Error title="horse_power" message={myErrors.horse_power[0]} />
+        }
+        <input
+          className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
+          type="number"
+          id="horse_power"
+          name="horse_power"
+          value={carObj.horse_power}
+          onChange={handleChange}
+          required
+        />
+      </label>
       <label className="block w-full my-1" htmlFor="images">
         <span className="block w-full">Upload Photos</span>
 

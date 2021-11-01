@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Cars from '../cars/Cars';
+import CarLists from '../cars/CarLists';
 
 const markets = () => {
-  const cars = useSelector((state) => state.cars.markets);
+  const cars = useSelector((state) => state.cars.sales);
   return (
-    <Cars markets={cars} />
+    <CarLists cars={cars} />
   );
 };
 

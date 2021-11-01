@@ -27,7 +27,7 @@ const NavMenu = (props) => {
 
   return (
     <div
-      className={toggle ? 'hidden' : 'w-1/2 flex flex-col items-start justify-around absolute nav-menu bg-gray-100 px-4 bg-gray h-auto'}
+      className={toggle ? 'hidden' : 'w-1/2 flex flex-col items-start justify-around absolute nav-menu bg-gray-100 px-4 h-auto'}
     >
       <div className="h-auto border-black w-full">
         <button className="inline" type="button" onClick={() => setTogglePages((prev) => !prev)}>

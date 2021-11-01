@@ -1,15 +1,21 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import CarLists from './CarLists';
 
-// console.log(cars);
-const Cars = () => (
-  <div>
-    Render list of cars
-  </div>
-);
-
-// Cars.propTypes = {
-//   cars: PropTypes.objectOf(PropTypes.shape({})).isRequired,
-// };
+const Cars = () => {
+  const { rentals, sales } = useSelector((state) => state.cars);
+  return (
+    <section className="content py-2 overflow-auto">
+      <div className="h-auto mx-2">
+        <h2 className="my-2">Rentals</h2>
+        <CarLists cars={rentals} />
+      </div>
+      <div className="h-auto mx-2 ">
+        <h2 className="my-2">Markets</h2>
+        <CarLists cars={sales} />
+      </div>
+    </section>
+  );
+};
 
 export default Cars;

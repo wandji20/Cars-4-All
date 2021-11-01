@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CarInfo from '../cars/CarInfo';
+import Car from '../cars/Car';
 import CarForm from '../cars/CarForm';
 import UpdateCarForm from '../cars/UpdateCarForm';
 
@@ -18,7 +18,7 @@ const CarModal = () => {
 
   const options = {
     new_car: <CarForm />,
-    detail: <CarInfo />,
+    detail: <Car />,
     edit_car: <UpdateCarForm />,
   };
 

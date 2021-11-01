@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import Nav from './components/nav/Nav';
 import Home from './components/home/Home';
-import Footer from './components/footer/Footer';
 import RentalCars from './components/rentals/RentalCars';
 import markets from './components/markets/markets';
 import Contact from './components/contact/Contact';
@@ -18,10 +17,11 @@ import More from './components/more/More';
 import Login from './components/user/Login';
 import SignupForm from './components/user/SignupForm';
 import Profile from './components/user/Profile';
+import Cars from './components/cars/Cars';
+import Modal from './components/modal/CarModal';
 import { getCarsIndex } from './redux/cars/carActions';
 import { getToken } from './helpers/token';
 import { userCreateAction } from './redux/user/userActions';
-import Modal from './components/modal/CarModal';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,10 +49,10 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/sign_up" component={SignupForm} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/cars" component={Cars} />
         </Switch>
         <Route exact path={['/profile/:option', '/cars/:option']} component={Modal} />
       </Router>
-      <Footer />
     </main>
   );
 };

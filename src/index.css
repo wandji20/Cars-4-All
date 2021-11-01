@@ -13,16 +13,18 @@
   border: 1px solid black;
 }
 
-.home,
-.signup-form {
+.home {
   height: 83%;
   border: 1px solid red;
 }
 
-.signup-form,
-.profile,
 .nav-menu {
-  height: 83%;
+  min-height: 83%;
   border: 1px solid red;
   top: 10%;
+}
+
+.content {
+  height: 90%;
+  border: 1px solid red;
 }
