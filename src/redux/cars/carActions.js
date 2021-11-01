@@ -1,6 +1,7 @@
 import { getToken } from '../../helpers/token';
 import BASE_URL from '../constants';
 import { errorAction, notificationAction } from '../errors/errors';
+import { reviewsCar } from '../reviews/reviewActions';
 
 const CARS_INDEX = 'cars/cars';
 const CARS_CREATE = 'cars/create';
@@ -60,7 +61,9 @@ const getCarShow = (id) => async (dispatch) => {
   try {
     const server = await fetch(`${BASE_URL}/cars/${id}`, { headers: { Authorization: token } });
     const response = await server.json();
+    console.log(response);
     dispatch(carsShow(response.car));
+    dispatch(reviewsCar(response.reviews));
   } catch (e) {
     dispatch(notificationAction(e.message));
   }
