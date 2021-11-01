@@ -5,7 +5,9 @@ import CarLists from '../cars/CarLists';
 const markets = () => {
   const cars = useSelector((state) => state.cars.sales);
   return (
-    <CarLists cars={cars} />
+    <section className="content p-2 overflow-auto">
+      <CarLists cars={cars} />
+    </section>
   );
 };
 

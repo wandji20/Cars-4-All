@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Cars from '../cars/Cars';
+import CarLists from '../cars/CarLists';
 
 const RentalCars = () => {
   const cars = useSelector((state) => state.cars.rentals);
   return (
-    <Cars rentals={cars} />
+    <section className="content p-2 overflow-auto">
+      <CarLists cars={cars} />
+    </section>
   );
 };
 
