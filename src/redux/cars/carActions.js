@@ -61,7 +61,6 @@ const getCarShow = (id) => async (dispatch) => {
   try {
     const server = await fetch(`${BASE_URL}/cars/${id}`, { headers: { Authorization: token } });
     const response = await server.json();
-    console.log(response);
     dispatch(carsShow(response.car));
     dispatch(reviewsCar(response.reviews));
   } catch (e) {
