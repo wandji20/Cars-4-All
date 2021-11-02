@@ -112,7 +112,7 @@ const NavMenu = (props) => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="sign_up" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="/sign_up" onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Signup</span>
                 </NavLink>
               </li>

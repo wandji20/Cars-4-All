@@ -6,29 +6,30 @@ import {
 } from 'react-router-dom';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Car from '../cars/Car';
-import CarForm from '../cars/CarForm';
-import UpdateCarForm from '../cars/UpdateCarForm';
+import UpdateUserForm from '../user/UpdateUserForm';
+import Login from '../user/Login';
+import SignupForm from '../user/SignupForm';
 
-const CarModal = () => {
-  const location = useLocation();
+const Modal = () => {
+  const { pathname } = useLocation();
   const history = useHistory();
   const { option } = useParams();
   const loggedIn = useSelector((state) => state.user.loggedIn);
 
+  console.log(pathname, option);
+
   const options = {
-    new_car: <CarForm />,
-    detail: <Car />,
-    edit_car: <UpdateCarForm />,
+    '/profile/edit': <UpdateUserForm />,
+    '/login': <Login />,
+    '/sign_up': <SignupForm />
   };
 
   const back = () => {
     history.goBack();
   };
 
-  if (!loggedIn) {
-    // console.log(location, history, Redirect);
-    // return <Redirect to="/login" />;
+  if (!loggedIn && pathname !== '/login') {
+    return <Redirect to="/login" />;
   }
 
   return (
@@ -43,7 +44,7 @@ const CarModal = () => {
         </button>
         <div className="bg-gray-100 absolute top-8 bottom-0 inset-x-0 overflow-y-auto">
           {
-            options[option] ? options[option] : <p className="">Invalid Url</p>
+            options[pathname] ? options[pathname] : <p className="">Invalid Url</p>
           }
         </div>
       </div>
@@ -51,4 +52,4 @@ const CarModal = () => {
   );
 };
 
-export default CarModal;
+export default Modal;

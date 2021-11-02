@@ -1,22 +1,26 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCaretSquareLeft, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 import { getCarShow } from '../../redux/cars/carActions';
 import mercedez from '../../assets/mercedesbenz_Classe_C1.jpg';
 
 const CarInfo = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const car = useSelector((state) => state.cars.car);
+  const userId = useSelector((state) => state.user.user.id);
+  console.log(userId, car.owner_id);
   const reviews = useSelector((state) => state.reviews.car);
   const rentals = useSelector((state) => state.rentals.car);
 
   const {
-    manufacturer, model, price, year, status, transmission, mileage, group,
+    manufacturer, model, location, price, year, status, transmission, mileage, group,
   } = car;
+  console.log(car);
 
   useEffect(() => {
     dispatch(getCarShow(id));
@@ -25,10 +29,19 @@ const CarInfo = () => {
   const style = {
     backgroundImage: `url(${mercedez})`,
   };
-  return (
-    <section className="content p-2  flex justify-around items-start flex-col text-white ">
 
-      <h2 className="text-xl">{`${manufacturer} ${model} ${year}`}</h2>
+  const back = () => {
+    history.goBack();
+  };
+  return (
+    <section className="content bg-gray-700 p-2 flex justify-around items-start flex-col text-white relative">
+      <button type="button" className="absolute top-2 right-2" onClick={back}>
+        <FontAwesomeIcon icon={faCaretSquareLeft} />
+      </button>
+      <div className="w-full">
+        <h2 className="text-xl">{`${manufacturer} ${model} ${year}`}</h2>
+        <p>{location}</p>
+      </div>
 
       <div style={style} className="h-72 bg-cover relative w-full">
         <ul className="absolute bottom-3 inset-x-0 flex justify-center">
@@ -94,9 +107,13 @@ const CarInfo = () => {
             </button>
             )
           }
-        <button type="button" className="bg-green-600 px-1">
-          Update Info
-        </button>
+        {
+          car.owner_id === userId && (
+          <button type="button" className="bg-green-600 px-1">
+            Update Info
+          </button>
+          )
+        }
       </div>
 
     </section>

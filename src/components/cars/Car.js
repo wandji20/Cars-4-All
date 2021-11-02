@@ -16,7 +16,7 @@ const Car = ({ car }) => {
     <article style={style} className="h-52 flex flex-col justify-between bg-cover text-white my-2">
 
       <p className="p-2 flex justify-between">
-        <NavLink to={`cars/${id}`}>
+        <NavLink to={`/cars/${id}`}>
           <button type="button" className="bg-green-500 px-1">
             More
           </button>

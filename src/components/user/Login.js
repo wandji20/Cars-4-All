@@ -61,7 +61,7 @@ const Login = () => {
           />
         </label>
 
-        <button className="w-full h-9 my-2" type="submit">
+        <button className="w-full h-9 my-2 bg-gray-500" type="submit">
           Submit
         </button>
       </form>

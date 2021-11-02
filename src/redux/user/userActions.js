@@ -44,7 +44,7 @@ export const postUser = (data) => async (dispatch) => {
 
     if (response.Authorization) {
       setToken(response.Authorization, response.user_name);
-      dispatch(userCreateAction({ loggedIn: true }));
+      dispatch(userCreateAction({ loggedIn: true, user: response.user }));
     } else {
       dispatch(errorAction(response.errors));
     }
@@ -69,7 +69,8 @@ export const postAuthentication = (authentication) => async (dispatch) => {
 
     if (response.Authorization) {
       setToken(response.Authorization, response.user_name);
-      dispatch(userCreateAction({ loggedIn: true }));
+      console.log(response);
+      dispatch(userCreateAction({ loggedIn: true, user: response.user }));
     } else {
       dispatch(notificationAction(response.message));
     }
