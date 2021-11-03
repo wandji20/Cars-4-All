@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, Redirect } from 'react-router-dom';
 import Error from '../errors/Error';
+import { putUserUpdate } from '../../redux/user/userActions';
 
 
 const UpdateUserForm = () => {
@@ -14,9 +15,9 @@ const UpdateUserForm = () => {
   const user = useSelector((state) => state.user.user)
   
   const [userObj, setUserObj] = useState({
-    first: user.first_name,
-    last: user.last_name,
-    user: user.user_name,
+    first_name: user.first_name,
+    last_name: user.last_name,
+    user_name: user.user_name,
     telephone: user.telephone,
     email: user.email,
     password: '',
@@ -40,7 +41,7 @@ const resetUserObj = () => {
   const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
- 
+    dispatch(putUserUpdate(userObj, history));
     resetUserObj();
   };
 
@@ -64,8 +65,8 @@ const resetUserObj = () => {
             className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
             type="text"
             id="first"
-            name="first"
-            value={userObj.first}
+            name="first_name"
+            value={userObj.first_name}
             onChange={handleChange}
             required
           />
@@ -80,8 +81,8 @@ const resetUserObj = () => {
             className="block w-full border-solid border-2 border-light-blue-500 h-9 "
             type="text"
             id="last"
-            name="last"
-            value={userObj.last}
+            name="last_name"
+            value={userObj.last_name}
             onChange={handleChange}
             required
           />
@@ -95,8 +96,8 @@ const resetUserObj = () => {
             className="block w-full border-solid border-2 border-light-blue-500 h-9"
             type="text"
             id="user"
-            name="user"
-            value={userObj.user}
+            name="user_name"
+            value={userObj.user_name}
             onChange={handleChange}
             required
           />

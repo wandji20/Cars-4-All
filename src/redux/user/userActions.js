@@ -4,6 +4,7 @@ import { getToken, setToken } from '../../helpers/token';
 
 export const USER_CREATE = 'user/create';
 export const LOG_OUT = 'user/logout';
+export const USERS_UPDATE = 'users/update';
 // export const LOG_IN = 'user/log';
 // export const SHOW_USER = 'user/show';
 
@@ -13,6 +14,10 @@ export const userCreateAction = (data) => ({
 
 export const logOutAction = () => ({
   type: LOG_OUT,
+});
+
+export const usersUpdate = (user) => ({
+  type: USERS_UPDATE, payload: user,
 });
 
 // export const userShowAction = (user) => ({
@@ -95,6 +100,33 @@ export const showUser = () => async (dispatch) => {
       dispatch(userCreateAction({ user: response.user }));
     } else {
       dispatch(notificationAction(response.message));
+    }
+  } catch (e) {
+    dispatch(notificationAction(e.message));
+  }
+};
+
+export const putUserUpdate = (user, history) => async (dispatch) => {
+  dispatch(errorAction({}));
+  try {
+    const token = getToken();
+    const server = await fetch(`${BASE_URL}/profile`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: token,
+      },
+      body: JSON.stringify({ user }),
+    });
+    const response = await server.json();
+
+    if (response.user) {
+      dispatch(userCreateAction({ user: response.user }));
+      history.goBack();
+    } else {
+      console.log(response);
+      dispatch(errorAction(response.errors));
     }
   } catch (e) {
     dispatch(notificationAction(e.message));
