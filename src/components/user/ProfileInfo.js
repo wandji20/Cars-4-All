@@ -60,9 +60,9 @@ const ProfileInfo = () => {
         </div>
         <div className="flex w-full flex-1">
           <ul className="flex flex-col justify-around items-start w-1/2">
-            <li className="my-3">
+            <li className="my-3 block ">
               <NavLink
-                className="block mx-2"
+                className="block mx-2 bg-gray-300 px-2 rounded-md"
                 to="/cars"
               >
                 All Cars
@@ -70,15 +70,15 @@ const ProfileInfo = () => {
             </li>
             <li className="my-3">
               <NavLink
-                className="block mx-2"
-                to="/rental"
+                className="block mx-2 bg-gray-300 px-2 rounded-md"
+                to="/rentals"
               >
                 Rentals
               </NavLink>
             </li>
             <li className="my-3">
               <NavLink
-                className="block mx-2"
+                className="block mx-2 bg-gray-300 px-2 rounded-md"
                 to="/profile/edit"
               >
                 Edit Profile
@@ -86,8 +86,8 @@ const ProfileInfo = () => {
             </li>
             <li className="my-3">
               <NavLink
-                className="block mx-2"
-                to="/profile/new_car"
+                className="block mx-2 bg-gray-300 px-2 rounded-md"
+                to="profile/cars/new"
               >
                 Create Car
               </NavLink>

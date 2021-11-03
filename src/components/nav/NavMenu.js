@@ -135,7 +135,7 @@ const NavMenu = (props) => {
                     handleToggleNav();
                     resetToggles();
                     dispatch(logOutAction());
-                    setToken('');
+                    setToken('', {});
                   }}
                 >
                   <span>Logout</span>

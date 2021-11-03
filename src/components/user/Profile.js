@@ -7,7 +7,7 @@ const Profile = () => {
   const loggedIn = useSelector((state) => state.user.loggedIn);
 
   if (!loggedIn) {
-    return <Redirect to="/login" />;
+    return <Redirect push to="/login" />;
   }
 
   return (

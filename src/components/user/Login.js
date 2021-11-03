@@ -16,7 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postAuthentication({ user_name: userName, password }));
+    dispatch(postAuthentication({ user_name: userName, password }, history));
     setPassword('');
     setUserName('');
   };
@@ -27,7 +27,9 @@ const Login = () => {
         <h4 className="text-2xl mx-1">Welcome to Cars 4 All</h4>
         <p className="text-sm ">
           <span className="block"> Don&apos;t have an account?</span>
-          <span className="block"><NavLink className="text-green-900" to="sign_up">Sign Up</NavLink></span>
+          <span className="block">
+            <NavLink className="text-green-900" to="/sign_up">Sign Up</NavLink>
+          </span>
         </p>
       </div>
       <form

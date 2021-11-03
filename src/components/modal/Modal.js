@@ -7,28 +7,27 @@ import {
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UpdateUserForm from '../user/UpdateUserForm';
-import Login from '../user/Login';
-import SignupForm from '../user/SignupForm';
+import UpdateCarForm from '../cars/UpdateCarForm';
+import CarForm from '../cars/CarForm';
 
 const Modal = () => {
   const { pathname } = useLocation();
   const history = useHistory();
-  const { option } = useParams();
+  const { id } = useParams();
   const loggedIn = useSelector((state) => state.user.loggedIn);
-
-  console.log(pathname, option);
 
   const options = {
     '/profile/edit': <UpdateUserForm />,
-    '/login': <Login />,
-    '/sign_up': <SignupForm />
+    '/profile/cars/new': <CarForm />,
+    [`/profile/cars/${id}/edit`]: <UpdateCarForm />,
   };
 
-  const back = () => {
+  const back = (e) => {
+    e.stopPropagation();
     history.goBack();
   };
 
-  if (!loggedIn && pathname !== '/login') {
+  if (!loggedIn) {
     return <Redirect to="/login" />;
   }
 

@@ -5,13 +5,13 @@ import Error from '../errors/Error';
 import { postUser } from '../../redux/user/userActions';
 
 const SignupForm = () => {
-  const loggedIn = useSelector((state) => state.user.userName);
+  const loggedIn = useSelector((state) => state.user.loggedIn);
   const history = useHistory();
   if (loggedIn) {
     history.goBack();
   }
   const myErrors = useSelector((state) => state.errors.errors);
-  console.log(myErrors);
+
   const [userObj, setUserObj] = useState({
     first: '',
     last: '',
@@ -163,7 +163,7 @@ const SignupForm = () => {
             required
           />
         </label>
-        <button className="w-full h-9 my-2" type="submit">
+        <button className="w-full h-9 my-2 bg-gray-500" type="submit">
           Submit
         </button>
       </form>

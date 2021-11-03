@@ -6,6 +6,7 @@ import { reviewsCar } from '../reviews/reviewActions';
 const CARS_INDEX = 'cars/cars';
 const CARS_CREATE = 'cars/create';
 const CARS_SHOW = 'cars/show';
+export const CARS_UPDATE = 'cars/update';
 
 const carsIndex = (cars) => ({
   type: CARS_INDEX, payload: cars,
@@ -17,6 +18,10 @@ const carsCreate = (car) => ({
 
 const carsShow = (car) => ({
   type: CARS_SHOW, payload: car,
+});
+
+export const carsUpdate = (car) => ({
+  type: CARS_UPDATE, payload: car,
 });
 
 const getCarsIndex = () => async (dispatch) => {
@@ -63,6 +68,31 @@ const getCarShow = (id) => async (dispatch) => {
     const response = await server.json();
     dispatch(carsShow(response.car));
     dispatch(reviewsCar(response.reviews));
+  } catch (e) {
+    dispatch(notificationAction(e.message));
+  }
+};
+
+export const putCarsUpdate = (id, car, history) => async (dispatch) => {
+  dispatch(errorAction({}));
+  const token = getToken();
+  try {
+    const server = await fetch(`${BASE_URL}/cars/${id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({ car }),
+    });
+    const response = await server.json();
+    if (response.car) {
+      dispatch(carsUpdate(response.car));
+      history.push(`/cars/${id}`);
+    } else {
+      dispatch(errorAction(response.errors));
+    }
   } catch (e) {
     dispatch(notificationAction(e.message));
   }

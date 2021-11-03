@@ -1,26 +1,37 @@
+/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import {
+  useParams, useHistory, NavLink, useLocation, Redirect,
+} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretSquareLeft, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 import { getCarShow } from '../../redux/cars/carActions';
 import mercedez from '../../assets/mercedesbenz_Classe_C1.jpg';
+import { getUser } from '../../helpers/token';
 
 const CarInfo = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  // const { state } = useLocation();
+  const sessionUser = getUser();
 
-  const car = useSelector((state) => state.cars.car);
-  const userId = useSelector((state) => state.user.user.id);
-  console.log(userId, car.owner_id);
+  const cars = useSelector((state)=> state.cars);
+  const car = cars.rentals[id] || cars.sales[id];
+  console.log(cars);
+
+  // if (!(state && state.car)) {
+  //   <Redirect to="/cars" />;
+  // }
+
+
   const reviews = useSelector((state) => state.reviews.car);
   const rentals = useSelector((state) => state.rentals.car);
 
   const {
     manufacturer, model, location, price, year, status, transmission, mileage, group,
   } = car;
-  console.log(car);
 
   useEffect(() => {
     dispatch(getCarShow(id));
@@ -30,7 +41,8 @@ const CarInfo = () => {
     backgroundImage: `url(${mercedez})`,
   };
 
-  const back = () => {
+  const back = (e) => {
+    e.stopPropagation();
     history.goBack();
   };
   return (
@@ -40,7 +52,7 @@ const CarInfo = () => {
       </button>
       <div className="w-full">
         <h2 className="text-xl">{`${manufacturer} ${model} ${year}`}</h2>
-        <p>{location}</p>
+        <p>Car Rating</p>
       </div>
 
       <div style={style} className="h-72 bg-cover relative w-full">
@@ -62,18 +74,30 @@ const CarInfo = () => {
             {car.horse_power}
             hp
           </span>
-          <span className="inline-block">
-            Rentals Completed
-            (
-            {rentals.length}
-            )
-          </span>
-          <span className="inline-block">
-            Reviews
-            (
-            {reviews.length}
-            )
-          </span>
+          {
+            group === 'rent'
+              ? (
+                <>
+                  <span className="inline-block">
+                    Rentals Completed
+                    (
+                    {rentals.length}
+                    )
+                  </span>
+                  <span className="inline-block">
+                    Reviews
+                    (
+                    {reviews.length}
+                    )
+                  </span>
+                </>
+              )
+              : (
+                <span className="inline-block">
+                  {location}
+                </span>
+              )
+          }
         </div>
         <div className="block flex justify-between flex-col">
           <span className="inline-block">
@@ -108,10 +132,16 @@ const CarInfo = () => {
             )
           }
         {
-          car.owner_id === userId && (
-          <button type="button" className="bg-green-600 px-1">
-            Update Info
-          </button>
+          car.owner_id === sessionUser.id && (
+          <NavLink to={{
+            pathname: `/profile/cars/${id}/edit`,
+            state: { car },
+          }}
+          >
+            <button type="button" className="bg-green-600 px-1">
+              Update Info
+            </button>
+          </NavLink>
           )
         }
       </div>

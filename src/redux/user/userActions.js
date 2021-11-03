@@ -43,7 +43,7 @@ export const postUser = (data) => async (dispatch) => {
     const response = await server.json();
 
     if (response.Authorization) {
-      setToken(response.Authorization, response.user_name);
+      setToken(response.Authorization, response.user);
       dispatch(userCreateAction({ loggedIn: true, user: response.user }));
     } else {
       dispatch(errorAction(response.errors));
@@ -53,7 +53,7 @@ export const postUser = (data) => async (dispatch) => {
   }
 };
 
-export const postAuthentication = (authentication) => async (dispatch) => {
+export const postAuthentication = (authentication, history) => async (dispatch) => {
   dispatch(errorAction({}));
   try {
     const server = await fetch(`${BASE_URL}/login`, {
@@ -68,9 +68,9 @@ export const postAuthentication = (authentication) => async (dispatch) => {
     const response = await server.json();
 
     if (response.Authorization) {
-      setToken(response.Authorization, response.user_name);
-      console.log(response);
+      setToken(response.Authorization, response.user);
       dispatch(userCreateAction({ loggedIn: true, user: response.user }));
+      history.goBack();
     } else {
       dispatch(notificationAction(response.message));
     }
