@@ -40,8 +40,15 @@ const resetUserObj = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const handleSubmit = (e) => {
+    const formData = new FormData();
+    formData.append('user[first_name]', userObj.first_name);
+    formData.append('user[last_name]', userObj.last_name);
+    formData.append('user[user_name]', userObj.user_name);
+    formData.append('user[email]', userObj.email);
+    formData.append('user[telephone]', userObj.telephone);
+    formData.append('user[password]', userObj.password);
     e.preventDefault();
-    dispatch(putUserUpdate(userObj, history));
+    dispatch(putUserUpdate(formData, history));
     resetUserObj();
   };
 

@@ -106,24 +106,27 @@ export const showUser = () => async (dispatch) => {
   }
 };
 
-export const putUserUpdate = (user, history) => async (dispatch) => {
+export const putUserUpdate = (formData, history) => async (dispatch) => {
   dispatch(errorAction({}));
+  console.log({ formData });
   try {
     const token = getToken();
     const server = await fetch(`${BASE_URL}/profile`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        // 'Content-Type': 'application/json',
+        // Accept: 'application/json',
         Authorization: token,
       },
-      body: JSON.stringify({ user }),
+      body: formData,
     });
     const response = await server.json();
 
     if (response.user) {
       dispatch(userCreateAction({ user: response.user }));
-      history.goBack();
+      if (history) {
+        history.goBack();
+      }
     } else {
       console.log(response);
       dispatch(errorAction(response.errors));

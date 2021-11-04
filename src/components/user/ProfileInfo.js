@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { showUser } from '../../redux/user/userActions';
+import { putUserUpdate, showUser } from '../../redux/user/userActions';
 // import Modal from '../modal/Modal';
 
 const ProfileInfo = () => {
@@ -12,12 +12,20 @@ const ProfileInfo = () => {
   useEffect(() => {
     dispatch(showUser());
   }, []);
+
+  const handleAvatarChange = (e) => {
+    const avatar = e.target.files[0];
+    const formData = new FormData();
+    formData.append('user[avatar]', avatar);
+    dispatch(putUserUpdate(formData));
+  };
   return (
     <>
       <section className="profile">
         <div className="my-5 mx-3">
-          <figure className="profile-image bg-gray-200 h-12 w-12 border-none rounded-full float-right flex flex-col justify-center items-center">
-            {
+          <figure className="profile-image bg-gray-200 border-none rounded-full float-right">
+            <label htmlFor="avatar" className="h-12 w-12 flex flex-col justify-center items-center">
+              {
               user.avatar !== null
                 ? <img src={user.avatar} alt="" />
                 : (
@@ -25,8 +33,18 @@ const ProfileInfo = () => {
                     <span className="block text-xs">Upload</span>
                     <span className="block text-xs">Photo</span>
                   </>
+
                 )
             }
+            </label>
+            <input
+              type="file"
+              name="avatar"
+              id="avatar"
+              accept="image/*"
+              className="hidden"
+              onChange={handleAvatarChange}
+            />
           </figure>
           <p>
             <span className="block">
