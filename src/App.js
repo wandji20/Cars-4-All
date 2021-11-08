@@ -28,11 +28,9 @@ const App = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
-  console.log(background);
 
   const token = getToken();
 
-  console.log('In App');
   useEffect(() => {
     dispatch(getCarsIndex());
   }, []);

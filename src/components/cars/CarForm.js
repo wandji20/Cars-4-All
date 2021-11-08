@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -7,7 +6,7 @@ import Error from '../errors/Error';
 
 const CarForm = () => {
   const myErrors = useSelector((state) => state.errors.errors);
-  console.log(myErrors)
+
   const categories = [
     { id: 1, name: 'Sedan' },
     { id: 2, name: 'Suv & Crossover' },
@@ -74,8 +73,8 @@ const CarForm = () => {
     formData.append('car[group]', carObj.group);
     formData.append('car[transmission]', carObj.transmission);
     formData.append('car[horse_power]', carObj.horse_power);
-    formData.append('car[image]', file[0])
-    
+    formData.append('car[image]', file[0]);
+
     // images.forEach((file)=> {
     //   console.log(file);
     //   formData.append('car[images][]', file);

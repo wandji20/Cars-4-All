@@ -8,7 +8,6 @@ const Car = ({ car }) => {
   } = car;
 
   const { pathname } = useLocation();
-  console.log(pathname);
 
   const style = {
     backgroundImage: `url(${image})`,

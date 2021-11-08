@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { getToken } from '../../helpers/token';
 import BASE_URL from '../constants';
 import { errorAction, notificationAction } from '../errors/errors';

@@ -10,7 +10,7 @@ const Home = () => {
     { text: 'Free shipping within 200km' },
   ];
   const number = Math.floor(Math.random() * messages.length);
-  console.log('In Home');
+
   return (
     <>
       <section className="w-full bg-gray-100 home flex justify-center items-center">

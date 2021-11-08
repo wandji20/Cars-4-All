@@ -1,6 +1,6 @@
 export const setToken = (token, user) => {
   sessionStorage.setItem('Authorization', token);
-  console.log(user);
+
   sessionStorage.setItem('user', JSON.stringify(user));
 };
 

@@ -126,7 +126,6 @@ export const putUserUpdate = (formData, navigate) => async (dispatch) => {
       dispatch(userCreateAction({ user: response.user }));
       if (navigate) navigate(-1);
     } else {
-      console.log(response);
       dispatch(errorAction(response.errors));
     }
   } catch (e) {

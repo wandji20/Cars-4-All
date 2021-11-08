@@ -10,7 +10,6 @@ const UpdateCarForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { car } = location.state;
-  console.log(car);
 
   const categories = [
     { id: 1, name: 'Sedan' },
