@@ -2,35 +2,29 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  useParams, useHistory, NavLink, useLocation, Redirect,
+  useParams, NavLink, useLocation, useNavigate,
 } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretSquareLeft, faDotCircle } from '@fortawesome/free-solid-svg-icons';
 import { getCarShow } from '../../redux/cars/carActions';
-import mercedez from '../../assets/mercedesbenz_Classe_C1.jpg';
 import { getUser } from '../../helpers/token';
 
 const CarInfo = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const history = useHistory();
-  // const { state } = useLocation();
+
   const sessionUser = getUser();
 
   const cars = useSelector((state)=> state.cars);
-  const car = cars.rentals[id] || cars.sales[id];
-  console.log(cars);
-
-  // if (!(state && state.car)) {
-  //   <Redirect to="/cars" />;
-  // }
+  const car = cars.rentals[id] || cars.sales[id] || {};
 
 
   const reviews = useSelector((state) => state.reviews.car);
   const rentals = useSelector((state) => state.rentals.car);
 
   const {
-    manufacturer, model, location, price, year, status, transmission, mileage, group,
+    manufacturer, model, location, price, year, status, transmission, mileage, group, image
   } = car;
 
   useEffect(() => {
@@ -38,12 +32,12 @@ const CarInfo = () => {
   }, []);
 
   const style = {
-    backgroundImage: `url(${mercedez})`,
+    backgroundImage: `url(${image})`,
   };
 
   const back = (e) => {
     e.stopPropagation();
-    history.goBack();
+    navigate(-1);
   };
   return (
     <section className="content bg-gray-700 p-2 flex justify-around items-start flex-col text-white relative">
@@ -145,7 +139,6 @@ const CarInfo = () => {
           )
         }
       </div>
-
     </section>
   );
 };

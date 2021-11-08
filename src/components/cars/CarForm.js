@@ -1,11 +1,13 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { postCarsCreate } from '../../redux/cars/carActions';
 import Error from '../errors/Error';
 
 const CarForm = () => {
   const myErrors = useSelector((state) => state.errors.errors);
+  console.log(myErrors)
   const categories = [
     { id: 1, name: 'Sedan' },
     { id: 2, name: 'Suv & Crossover' },
@@ -26,10 +28,10 @@ const CarForm = () => {
     horse_power: 0,
   });
 
-  const [images, setImages] = useState({});
+  const [file, setFile] = useState({});
 
-  const handleImageChange = (e) => {
-    setImages(e.target.files);
+  const handleFileChange = (e) => {
+    setFile(e.target.files);
   };
 
   const handleChange = (e) => {
@@ -57,13 +59,29 @@ const CarForm = () => {
   };
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const handleSubmit = (e) => {
-    console.log(carObj);
     e.preventDefault();
-    dispatch(postCarsCreate(carObj, history));
-    console.log(images);
-    resetCarObj();
+    const formData = new FormData();
+    formData.append('car[manufacturer]', carObj.manufacturer);
+    formData.append('car[model]', carObj.model);
+    formData.append('car[location]', carObj.location);
+    formData.append('car[category_id]', carObj.category_id);
+    formData.append('car[price]', carObj.price);
+    formData.append('car[mileage]', carObj.mileage);
+    formData.append('car[year]', carObj.year);
+    formData.append('car[group]', carObj.group);
+    formData.append('car[transmission]', carObj.transmission);
+    formData.append('car[horse_power]', carObj.horse_power);
+    formData.append('car[image]', file[0])
+    
+    // images.forEach((file)=> {
+    //   console.log(file);
+    //   formData.append('car[images][]', file);
+    // });
+    // console.log(images, files[0]);
+    dispatch(postCarsCreate(formData));
+    // resetCarObj();
   };
 
   return (
@@ -281,22 +299,21 @@ const CarForm = () => {
           required
         />
       </label>
-      <label className="block w-full my-1" htmlFor="images">
-        <span className="block w-full">Upload Photos</span>
+      <label className="block w-full my-1" htmlFor="files">
+        <span className="block w-full">Upload Photo</span>
 
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="file"
-          id="images"
-          name="images"
+          id="file"
+          name="file"
           multiple
-          // value={images}
-          onChange={handleImageChange}
+          onChange={handleFileChange}
         />
       </label>
 
       <button className="w-full h-9 my-2 bg-gray-300" type="submit">
-        Submit
+        Add Car
       </button>
     </form>
   );

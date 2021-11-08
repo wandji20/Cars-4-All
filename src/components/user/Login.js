@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { postAuthentication } from '../../redux/user/userActions';
 
@@ -8,15 +8,15 @@ const Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const history = useHistory();
+  // const history = useHistory();
   if (loggedIn) {
-    history.goBack();
+    // history.goBack();
   }
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postAuthentication({ user_name: userName, password }, history));
+    dispatch(postAuthentication({ user_name: userName, password }));
     setPassword('');
     setUserName('');
   };

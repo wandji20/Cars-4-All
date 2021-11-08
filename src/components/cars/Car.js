@@ -1,29 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-import mercedez from '../../assets/mercedesbenz_Classe_C1.jpg';
+import { Link } from 'react-router-dom';
 
 const Car = ({ car }) => {
   const {
-    location, group, manufacturer, model, year, price, id,
+    image, location, group, manufacturer, model, year, price, id,
   } = car;
+
   const style = {
-    backgroundImage: `url(${mercedez})`,
+    backgroundImage: `url(${image})`,
   };
   return (
 
     <article style={style} className="h-52 flex flex-col justify-between bg-cover text-white my-2">
 
       <p className="p-2 flex justify-between">
-        <NavLink to={{
-          pathname: `/cars/${id}`,
-          state: { car },
-        }}
-        >
+        <Link to={`${'/cars'}/${id}`}>
           <button type="button" className="bg-green-500 px-1">
             More
           </button>
-        </NavLink>
+        </Link>
         <span className="inline-block">
           { group === 'rent' ? 'Available' : location }
         </span>

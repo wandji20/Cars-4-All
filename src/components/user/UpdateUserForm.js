@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Error from '../errors/Error';
 import { putUserUpdate } from '../../redux/user/userActions';
 
@@ -38,7 +38,7 @@ const resetUserObj = () => {
   };
     
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const handleSubmit = (e) => {
     const formData = new FormData();
     formData.append('user[first_name]', userObj.first_name);
@@ -48,7 +48,7 @@ const resetUserObj = () => {
     formData.append('user[telephone]', userObj.telephone);
     formData.append('user[password]', userObj.password);
     e.preventDefault();
-    dispatch(putUserUpdate(formData, history));
+    dispatch(putUserUpdate(formData));
     resetUserObj();
   };
 

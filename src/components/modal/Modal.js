@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  useLocation, useHistory, useParams, Redirect,
+  useLocation, useParams, Navigate, useNavigate,
 } from 'react-router-dom';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,25 +11,27 @@ import UpdateCarForm from '../cars/UpdateCarForm';
 import CarForm from '../cars/CarForm';
 
 const Modal = () => {
-  const { pathname } = useLocation();
-  const history = useHistory();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { pathname } = location;
+
   const { id } = useParams();
   const loggedIn = useSelector((state) => state.user.loggedIn);
 
   const options = {
     '/profile/edit': <UpdateUserForm />,
-    '/profile/cars/new': <CarForm />,
+    '/cars/new': <CarForm />,
     [`/profile/cars/${id}/edit`]: <UpdateCarForm />,
   };
 
   const back = (e) => {
-    e.stopPropagation();
-    history.goBack();
+    // e.stopPropagation();
+    navigate(-1);
   };
 
-  if (!loggedIn) {
-    return <Redirect to="/login" />;
-  }
+  // if (!loggedIn) {
+  //   return <Navigate to="/login" />;
+  // }
 
   return (
     <section className="absolute inset-0 z-10 bg-transparent">

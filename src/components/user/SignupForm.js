@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Error from '../errors/Error';
 import { postUser } from '../../redux/user/userActions';
 
 const SignupForm = () => {
   const loggedIn = useSelector((state) => state.user.loggedIn);
-  const history = useHistory();
+  // const history = useHistory();
   if (loggedIn) {
-    history.goBack();
+    // history.goBack();
   }
   const myErrors = useSelector((state) => state.errors.errors);
 

@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation, Redirect, useParams } from 'react-router-dom';
+import { useLocation, Navigate, useParams } from 'react-router-dom';
 import { putCarsUpdate } from '../../redux/cars/carActions';
 import Error from '../errors/Error';
 
@@ -11,7 +11,7 @@ const UpdateCarForm = () => {
   const { id } = useParams();
 
   if (!(location.state && location.state.car)){
-    <Redirect to={`/cars/${id}`} />
+    <Navigate to={`/cars/${id}`} />
   }
 
   const { car } = location.state
@@ -69,11 +69,11 @@ const UpdateCarForm = () => {
   };
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const handleSubmit = (e) => {
     console.log(carObj);
     e.preventDefault();
-    dispatch(putCarsUpdate(id, carObj, history));
+    dispatch(putCarsUpdate(id, carObj));
     console.log(images);
     // resetCarObj();
   };

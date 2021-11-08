@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { getToken } from '../../helpers/token';
 import BASE_URL from '../constants';
 import { errorAction, notificationAction } from '../errors/errors';
@@ -35,7 +36,7 @@ const getCarsIndex = () => async (dispatch) => {
   }
 };
 
-const postCarsCreate = (car, history) => async (dispatch) => {
+const postCarsCreate = (formData, history) => async (dispatch) => {
   dispatch(errorAction({}));
   const token = getToken();
   try {
@@ -43,15 +44,13 @@ const postCarsCreate = (car, history) => async (dispatch) => {
       method: 'POST',
       headers: {
         Authorization: token,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
       },
-      body: JSON.stringify({ car }),
+      body: formData,
     });
     const response = await server.json();
     if (response.car) {
       dispatch(carsCreate(response.car));
-      history.goBack();
+      // history.goBack();
     } else {
       dispatch(errorAction(response.errors));
     }
