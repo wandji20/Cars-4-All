@@ -30,6 +30,7 @@ import Main from './components/main/Main';
 import CarsIndex from './components/cars/CarsIndex';
 import CarForm from './components/cars/CarForm';
 import RentalsIndex from './components/rentals/RentalCarsIndex';
+import UpdateCarForm from './components/cars/UpdateCarForm';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Main />} >
           <Route path="/" element={<Home />} />
+          <Route path="profile" element={<Profile />}/>
           <Route path="contact" element={<Contact />} />
           <Route path="cars" element={<Cars />}>
             <Route path="/cars" element={<CarsIndex />} />
@@ -68,7 +70,6 @@ const App = () => {
               <Route path=":id" element={<CarInfo />} />
             </Route>
           </Route>
-
           <Route
             path="*"
             element={
@@ -77,14 +78,16 @@ const App = () => {
               </main>
             }
           />
-          <Route path="profile" element={<Profile />}>
-          </Route>
         </Route>
       </Routes>
       <Routes>
+        { background && <Route path="profile/edit" element={<Modal />} /> }
         { background && <Route path="cars/new" element={<Modal />} /> }
         { background && <Route path="login" element={<Modal />} /> }
         { background && <Route path="sign_up" element={<Modal />} /> }
+        { background && <Route path="cars/rentals/:id/edit" element={<Modal />} /> }
+        { background && <Route path="cars/markets/:id/edit" element={<Modal />} /> }
+        { background && <Route path="cars/:id/edit" element={<Modal />} /> }
       </Routes>
     </>
   );

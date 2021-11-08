@@ -1,19 +1,15 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Error from '../errors/Error';
 import { putUserUpdate } from '../../redux/user/userActions';
 
-
 const UpdateUserForm = () => {
+  const navigate = useNavigate();
 
-  const loggedIn = useSelector((state) => state.user.loggedIn);
-
-  
   const myErrors = useSelector((state) => state.errors.errors);
-  const user = useSelector((state) => state.user.user)
-  
+  const user = useSelector((state) => state.user.user);
+
   const [userObj, setUserObj] = useState({
     first_name: user.first_name,
     last_name: user.last_name,
@@ -22,7 +18,7 @@ const UpdateUserForm = () => {
     email: user.email,
     password: '',
   });
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserObj((prev) => ({
@@ -30,15 +26,15 @@ const UpdateUserForm = () => {
       [name]: value,
     }));
   };
-  
-const resetUserObj = () => {
+
+  const resetUserObj = () => {
   // setUserObj((state) => ({
     //   ...state, password: '',
     // }));
   };
-    
+
   const dispatch = useDispatch();
-  // const history = useHistory();
+
   const handleSubmit = (e) => {
     const formData = new FormData();
     formData.append('user[first_name]', userObj.first_name);
@@ -48,15 +44,18 @@ const resetUserObj = () => {
     formData.append('user[telephone]', userObj.telephone);
     formData.append('user[password]', userObj.password);
     e.preventDefault();
-    dispatch(putUserUpdate(formData));
+    dispatch(putUserUpdate(formData, navigate));
     resetUserObj();
   };
 
   return (
     <section className="signup-form flex flex-col justify-center overflow-y-auto">
       <div className="mx-auto text-center">
-        <h4 className="text-2xl mx-1">Hi, {user.user_name}</h4>
-        
+        <h4 className="text-2xl mx-1">
+          Hi,
+          {user.user_name}
+        </h4>
+
       </div>
       <form
         className=" px-4 text-base"
@@ -153,7 +152,7 @@ const resetUserObj = () => {
             required
           />
         </label>
-        
+
         <button className="w-full h-9 my-2 bg-gray-700" type="submit">
           Update Info
         </button>

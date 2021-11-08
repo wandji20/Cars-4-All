@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { postAuthentication } from '../../redux/user/userActions';
 
@@ -7,11 +7,12 @@ const Login = () => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postAuthentication({ user_name: userName, password }));
+    dispatch(postAuthentication({ user_name: userName, password }, navigate));
     setPassword('');
     setUserName('');
   };

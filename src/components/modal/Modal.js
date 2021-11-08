@@ -1,8 +1,6 @@
-/* eslint-disable */
 import React from 'react';
-import { useSelector } from 'react-redux';
 import {
-  useLocation, useParams, Navigate, useNavigate,
+  useLocation, useParams, useNavigate,
 } from 'react-router-dom';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,21 +13,23 @@ import SignupForm from '../user/SignupForm';
 const Modal = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { pathname, state } = location;
-  // console.log(state);
+  const { pathname } = location;
+
   const { id } = useParams();
-  const loggedIn = useSelector((state) => state.user.loggedIn);
 
   const options = {
     '/login': <Login />,
     '/sign_up': <SignupForm />,
     '/profile/edit': <UpdateUserForm />,
     '/cars/new': <CarForm />,
-    [`/profile/cars/${id}/edit`]: <UpdateCarForm />,
+    [`/cars/${id}/edit`]: <UpdateCarForm />,
+    [`/cars/rentals/${id}/edit`]: <UpdateCarForm />,
+    [`/cars/markets/${id}/edit`]: <UpdateCarForm />,
   };
   const back = (e) => {
     e.stopPropagation();
-    navigate('/');
+    const newLocation = ['/login', '/sign_up'].includes(pathname) ? '/' : -1;
+    navigate(newLocation);
   };
 
   return (

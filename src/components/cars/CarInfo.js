@@ -1,8 +1,7 @@
-/* eslint-disable */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  useParams, NavLink, useNavigate
+  useParams, NavLink, useNavigate, useLocation,
 } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretSquareLeft, faDotCircle } from '@fortawesome/free-solid-svg-icons';
@@ -13,17 +12,18 @@ const CarInfo = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentLocation = useLocation();
 
   const sessionUser = getUser();
 
-  const cars = useSelector((state)=> state.cars);
+  const cars = useSelector((state) => state.cars);
   const car = cars.rentals[id] || cars.sales[id] || {};
 
   const reviews = useSelector((state) => state.reviews.car);
   const rentals = useSelector((state) => state.rentals.car);
 
   const {
-    manufacturer, model, location, price, year, status, transmission, mileage, group, image
+    manufacturer, model, location, price, year, status, transmission, mileage, group, image,
   } = car;
 
   useEffect(() => {
@@ -126,11 +126,7 @@ const CarInfo = () => {
           }
         {
           car.owner_id === sessionUser.id && (
-          <NavLink to={{
-            pathname: `/profile/cars/${id}/edit`,
-            state: { car },
-          }}
-          >
+          <NavLink to={`${currentLocation.pathname}/edit`} state={{ background: location, car }}>
             <button type="button" className="bg-green-600 px-1">
               Update Info
             </button>

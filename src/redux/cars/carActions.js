@@ -36,7 +36,7 @@ const getCarsIndex = () => async (dispatch) => {
   }
 };
 
-const postCarsCreate = (formData, history) => async (dispatch) => {
+const postCarsCreate = (formData, navigate) => async (dispatch) => {
   dispatch(errorAction({}));
   const token = getToken();
   try {
@@ -50,7 +50,7 @@ const postCarsCreate = (formData, history) => async (dispatch) => {
     const response = await server.json();
     if (response.car) {
       dispatch(carsCreate(response.car));
-      // history.goBack();
+      navigate(-1);
     } else {
       dispatch(errorAction(response.errors));
     }
@@ -72,7 +72,7 @@ const getCarShow = (id) => async (dispatch) => {
   }
 };
 
-export const putCarsUpdate = (id, car, history) => async (dispatch) => {
+export const putCarsUpdate = (id, formData, navigate) => async (dispatch) => {
   dispatch(errorAction({}));
   const token = getToken();
   try {
@@ -80,15 +80,13 @@ export const putCarsUpdate = (id, car, history) => async (dispatch) => {
       method: 'PUT',
       headers: {
         Authorization: token,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
       },
-      body: JSON.stringify({ car }),
+      body: formData,
     });
     const response = await server.json();
     if (response.car) {
       dispatch(carsUpdate(response.car));
-      history.push(`/cars/${id}`);
+      navigate(-1);
     } else {
       dispatch(errorAction(response.errors));
     }

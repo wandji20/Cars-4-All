@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { postCarsCreate } from '../../redux/cars/carActions';
 import Error from '../errors/Error';
 
@@ -59,7 +59,8 @@ const CarForm = () => {
   };
 
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -80,8 +81,8 @@ const CarForm = () => {
     //   formData.append('car[images][]', file);
     // });
     // console.log(images, files[0]);
-    dispatch(postCarsCreate(formData));
-    // resetCarObj();
+    dispatch(postCarsCreate(formData, navigate));
+    resetCarObj();
   };
 
   return (

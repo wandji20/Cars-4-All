@@ -1,7 +1,6 @@
-/* eslint-disable */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation, Navigate, useParams } from 'react-router-dom';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { putCarsUpdate } from '../../redux/cars/carActions';
 import Error from '../errors/Error';
 
@@ -9,12 +8,9 @@ const UpdateCarForm = () => {
   const myErrors = useSelector((state) => state.errors.errors);
   const location = useLocation();
   const { id } = useParams();
-
-  if (!(location.state && location.state.car)){
-    <Navigate to={`/cars/${id}`} />
-  }
-
-  const { car } = location.state
+  const navigate = useNavigate();
+  const { car } = location.state;
+  console.log(car);
 
   const categories = [
     { id: 1, name: 'Sedan' },
@@ -23,25 +19,23 @@ const UpdateCarForm = () => {
     { id: 4, name: 'Van & Bus' },
   ];
 
-  
-
   const [carObj, setCarObj] = useState({
     manufacturer: car.manufacturer || '',
     model: car.model || '',
     location: car.location || '',
     category_id: car.category_id || '',
     price: car.price || '',
-    mileage: car.mileage | 0,
+    mileage: car.mileage || 0,
     year: car.year || 2002,
     // group: car.group,
     transmission: car.transmission || '',
     horse_power: car.horse_power || 0,
   });
 
-  const [images, setImages] = useState(car.images);
+  const [file, setFile] = useState({});
 
-  const handleImageChange = (e) => {
-    setImages(e.target.files);
+  const handleFileChange = (e) => {
+    setFile(e.target.files);
   };
 
   const handleChange = (e) => {
@@ -53,29 +47,37 @@ const UpdateCarForm = () => {
   };
 
   const resetCarObj = () => {
-    setCarObj((state) => ({
-      ...state,
-      manufacturer: '',
-      model: '',
-      location: '',
-      category_id: null,
-      price: 0,
-      mileage: 0,
-      // group: '',
-      transmission: '',
-      horse_power: 0,
-      year: 2002,
-    }));
+    // setCarObj((state) => ({
+    //   ...state,
+    //   manufacturer: '',
+    //   model: '',
+    //   location: '',
+    //   category_id: null,
+    //   price: 0,
+    //   mileage: 0,
+    //   // group: '',
+    //   transmission: '',
+    //   horse_power: 0,
+    //   year: 2002,
+    // }));
   };
 
   const dispatch = useDispatch();
-  // const history = useHistory();
   const handleSubmit = (e) => {
-    console.log(carObj);
+    const formData = new FormData();
+    formData.append('car[manufacturer]', carObj.manufacturer);
+    formData.append('car[model]', carObj.model);
+    formData.append('car[location]', carObj.location);
+    formData.append('car[category_id]', carObj.category_id);
+    formData.append('car[price]', carObj.price);
+    formData.append('car[mileage]', carObj.mileage);
+    formData.append('car[year]', carObj.year);
+    formData.append('car[transmission]', carObj.transmission);
+    formData.append('car[horse_power]', carObj.horse_power);
+    if (file[0]) formData.append('car[image]', file[0]);
     e.preventDefault();
-    dispatch(putCarsUpdate(id, carObj));
-    console.log(images);
-    // resetCarObj();
+    dispatch(putCarsUpdate(id, formData, navigate));
+    resetCarObj();
   };
 
   return (
@@ -241,7 +243,7 @@ const UpdateCarForm = () => {
       <label className="block w-full my-1" htmlFor="price">
         <span className="block w-full">
           {
-            carObj.group === 'rent' ? 'Price per day($)' : 'Price($)'
+            car.group === 'rent' ? 'Price per day($)' : 'Price($)'
           }
         </span>
         {
@@ -299,11 +301,10 @@ const UpdateCarForm = () => {
         <input
           className="block w-full border-solid border-2 border-light-blue-500 h-9 text-lg"
           type="file"
-          id="images"
-          name="images"
+          id="file"
+          name="file"
           multiple
-          // value={images}
-          onChange={handleImageChange}
+          onChange={handleFileChange}
         />
       </label>
 

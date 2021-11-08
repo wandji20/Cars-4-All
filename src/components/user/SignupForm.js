@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Error from '../errors/Error';
 import { postUser } from '../../redux/user/userActions';
 
 const SignupForm = () => {
   const location = useLocation();
-  console.log(location);
-  const loggedIn = useSelector((state) => state.user.loggedIn);
-  // const history = useHistory();
-  if (loggedIn) {
-    // history.goBack();
-  }
+  const navigate = useNavigate();
+
   const myErrors = useSelector((state) => state.errors.errors);
 
   const [userObj, setUserObj] = useState({
@@ -41,7 +37,7 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(postUser(userObj));
+    dispatch(postUser(userObj, navigate));
     resetUserObj();
   };
 

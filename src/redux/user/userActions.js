@@ -58,7 +58,7 @@ export const postUser = (data) => async (dispatch) => {
   }
 };
 
-export const postAuthentication = (authentication, history) => async (dispatch) => {
+export const postAuthentication = (authentication, navigate) => async (dispatch) => {
   dispatch(errorAction({}));
   try {
     const server = await fetch(`${BASE_URL}/login`, {
@@ -75,7 +75,7 @@ export const postAuthentication = (authentication, history) => async (dispatch) 
     if (response.Authorization) {
       setToken(response.Authorization, response.user);
       dispatch(userCreateAction({ loggedIn: true, user: response.user }));
-      history.goBack();
+      navigate(-1);
     } else {
       dispatch(notificationAction(response.message));
     }
@@ -106,9 +106,9 @@ export const showUser = () => async (dispatch) => {
   }
 };
 
-export const putUserUpdate = (formData, history) => async (dispatch) => {
+export const putUserUpdate = (formData, navigate) => async (dispatch) => {
   dispatch(errorAction({}));
-  console.log({ formData });
+
   try {
     const token = getToken();
     const server = await fetch(`${BASE_URL}/profile`, {
@@ -124,9 +124,7 @@ export const putUserUpdate = (formData, history) => async (dispatch) => {
 
     if (response.user) {
       dispatch(userCreateAction({ user: response.user }));
-      if (history) {
-        history.goBack();
-      }
+      if (navigate) navigate(-1);
     } else {
       console.log(response);
       dispatch(errorAction(response.errors));
