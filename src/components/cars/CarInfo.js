@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  useParams, NavLink, useLocation, useNavigate,
+  useParams, NavLink, useNavigate
 } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretSquareLeft, faDotCircle } from '@fortawesome/free-solid-svg-icons';
@@ -18,7 +18,6 @@ const CarInfo = () => {
 
   const cars = useSelector((state)=> state.cars);
   const car = cars.rentals[id] || cars.sales[id] || {};
-
 
   const reviews = useSelector((state) => state.reviews.car);
   const rentals = useSelector((state) => state.rentals.car);

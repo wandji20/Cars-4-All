@@ -4,11 +4,9 @@ import { useDispatch } from 'react-redux';
 import { postAuthentication } from '../../redux/user/userActions';
 
 const Login = () => {
-  // const loggedIn = useSelector((state) => state.user.loggedIn);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
   const location = useLocation();
-  console.log(location);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {

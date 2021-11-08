@@ -10,7 +10,9 @@ import {
 import Nav from './components/nav/Nav';
 import Home from './components/home/Home';
 import RentalCars from './components/rentals/RentalCars';
+import RentalCarsIndex from './components/rentals/RentalCarsIndex';
 import Markets from './components/markets/Markets';
+import MarketsIndex from './components/markets/MarketsIndex';
 import Contact from './components/contact/Contact';
 import Reviews from './components/testimonial/Reviews';
 import More from './components/more/More';
@@ -27,6 +29,7 @@ import CarInfo from './components/cars/CarInfo';
 import Main from './components/main/Main';
 import CarsIndex from './components/cars/CarsIndex';
 import CarForm from './components/cars/CarForm';
+import RentalsIndex from './components/rentals/RentalCarsIndex';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -52,13 +55,20 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Main />} >
           <Route path="/" element={<Home />} />
-          <Route path="rentals" element={<RentalCars />} />
-          <Route path="markets" element={<Markets />} />
           <Route path="contact" element={<Contact />} />
           <Route path="cars" element={<Cars />}>
             <Route path="/cars" element={<CarsIndex />} />
-            <Route path=":id" element={<CarInfo />} /> 
+            <Route path=":id" element={<CarInfo />} />
+            <Route path="/cars/markets" element={<Markets />} >
+              <Route path="/cars/markets" element={<MarketsIndex />} />
+              <Route path=":id" element={<CarInfo />} />
+            </Route>
+            <Route path="/cars/rentals" element={<RentalCars />}>
+              <Route path="/cars/rentals" element={<RentalCarsIndex />} />
+              <Route path=":id" element={<CarInfo />} />
+            </Route>
           </Route>
+
           <Route
             path="*"
             element={
@@ -72,9 +82,6 @@ const App = () => {
         </Route>
       </Routes>
       <Routes>
-        {/* background && <Route path="cars/new" element={<Modal />} /> 
-        background && <Route path="login" element={<Modal />} /> 
-        background && <Route path="sign_up" element={<Modal />} />  */}
         { background && <Route path="cars/new" element={<Modal />} /> }
         { background && <Route path="login" element={<Modal />} /> }
         { background && <Route path="sign_up" element={<Modal />} /> }

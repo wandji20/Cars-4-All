@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Car = ({ car }) => {
   const {
     image, location, group, manufacturer, model, year, price, id,
   } = car;
+
+  const { pathname } = useLocation();
+  console.log(pathname);
 
   const style = {
     backgroundImage: `url(${image})`,
@@ -15,7 +18,7 @@ const Car = ({ car }) => {
     <article style={style} className="h-52 flex flex-col justify-between bg-cover text-white my-2">
 
       <p className="p-2 flex justify-between">
-        <Link to={`${'/cars'}/${id}`}>
+        <Link to={`${pathname}/${id}`}>
           <button type="button" className="bg-green-500 px-1">
             More
           </button>
