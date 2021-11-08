@@ -11,7 +11,7 @@ const NavMenu = (props) => {
   const location = useLocation();
 
   const { toggle, handleToggleNav } = props;
-  const pages = ['rentals', 'markets'];
+  const cars = ['rentals', 'markets'];
   const featuredCars = ['', 'Sedan', 'Suv & Crossover', 'Van & Bus', 'Truck'];
 
   const dispatch = useDispatch();
@@ -33,19 +33,19 @@ const NavMenu = (props) => {
     >
       <div className="h-auto border-black w-full">
         <button className="inline" type="button" onClick={() => setTogglePages((prev) => !prev)}>
-          <span className="inline-block">Pages</span>
+          <span className="inline-block">Cars</span>
           <span className="inline-block ml-2">
             <FontAwesomeIcon icon={faCaretDown} />
           </span>
         </button>
         <ul
-          id="pages"
+          id="cars"
           className={togglePages ? 'w-auto ml-5 border-4 border-light-blue-500' : 'hidden'}
         >
           {
-              pages.map((page) => (
+              cars.map((page) => (
                 <li key={page}>
-                  <NavLink to={`/${page}`} onClick={() => { handleToggleNav(); resetToggles(); }}>
+                  <NavLink to={`cars/${page}`} onClick={() => { handleToggleNav(); resetToggles(); }}>
                     <span>{page}</span>
                   </NavLink>
                 </li>
@@ -54,7 +54,7 @@ const NavMenu = (props) => {
         </ul>
       </div>
 
-      <NavLink to="/testimonials" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
+      <NavLink to="testimonials" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
         <span>Testimonial</span>
       </NavLink>
 
@@ -85,11 +85,11 @@ const NavMenu = (props) => {
         </ul>
       </div>
 
-      <NavLink to="/more" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
+      <NavLink to="more" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
         <span>More</span>
       </NavLink>
 
-      <NavLink to="/contact" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
+      <NavLink to="contact" className="inline-block" onClick={() => { handleToggleNav(); resetToggles(); }}>
         <span>Contact</span>
       </NavLink>
 
@@ -126,7 +126,7 @@ const NavMenu = (props) => {
             loggedIn && (
             <>
               <li>
-                <NavLink to="/profile" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="profile" onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Account</span>
                 </NavLink>
               </li>
