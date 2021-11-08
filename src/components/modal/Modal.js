@@ -9,29 +9,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UpdateUserForm from '../user/UpdateUserForm';
 import UpdateCarForm from '../cars/UpdateCarForm';
 import CarForm from '../cars/CarForm';
+import Login from '../user/Login';
+import SignupForm from '../user/SignupForm';
 
 const Modal = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { pathname } = location;
-
+  const { pathname, state } = location;
+  // console.log(state);
   const { id } = useParams();
   const loggedIn = useSelector((state) => state.user.loggedIn);
 
   const options = {
+    '/login': <Login />,
+    '/sign_up': <SignupForm />,
     '/profile/edit': <UpdateUserForm />,
     '/cars/new': <CarForm />,
     [`/profile/cars/${id}/edit`]: <UpdateCarForm />,
   };
-
   const back = (e) => {
-    // e.stopPropagation();
-    navigate(-1);
+    e.stopPropagation();
+    navigate('/');
   };
-
-  // if (!loggedIn) {
-  //   return <Navigate to="/login" />;
-  // }
 
   return (
     <section className="absolute inset-0 z-10 bg-transparent">

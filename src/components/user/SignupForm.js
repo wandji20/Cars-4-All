@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import Error from '../errors/Error';
 import { postUser } from '../../redux/user/userActions';
 
 const SignupForm = () => {
+  const location = useLocation();
+  console.log(location);
   const loggedIn = useSelector((state) => state.user.loggedIn);
   // const history = useHistory();
   if (loggedIn) {
@@ -49,7 +51,7 @@ const SignupForm = () => {
         <h4 className="text-2xl mx-1">Welcome to Cars 4 All</h4>
         <p className="text-sm ">
           <span className="block">Already signed up?</span>
-          <span className="block"><NavLink className="text-green-900" to="login">Login</NavLink></span>
+          <span className="block"><NavLink className="text-green-900" to="/login" state={{ background: location }}>Login</NavLink></span>
         </p>
       </div>
       <form

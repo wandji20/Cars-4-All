@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  useLocation,
 } from 'react-router-dom';
 import Nav from './components/nav/Nav';
 import Home from './components/home/Home';
@@ -29,6 +30,9 @@ import CarForm from './components/cars/CarForm';
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  console.log(background);
 
   const token = getToken();
 
@@ -44,7 +48,7 @@ const App = () => {
   });
 
   return (
-    <Router>
+    <>
       <Routes>
         <Route path="/" element={<Main />} >
           <Route path="/" element={<Home />} />
@@ -54,7 +58,6 @@ const App = () => {
           <Route path="cars" element={<Cars />}>
             <Route path="/cars" element={<CarsIndex />} />
             <Route path=":id" element={<CarInfo />} /> 
-            <Route path="/cars/new" element={<Modal />} /> 
           </Route>
           <Route
             path="*"
@@ -64,27 +67,19 @@ const App = () => {
               </main>
             }
           />
+          <Route path="profile" element={<Profile />}>
+          </Route>
         </Route>
       </Routes>
-
-      {/* <main className="w-full h-full">
-        <Nav />
-        <Routes>
-          <Route exact path="testimonials" element={<Reviews/>} />
-          <Route exact path="more" element={<More/>} />
-          <Route exact path="login" element={<Login/>} />
-          <Route exact path="sign_up" element={<SignupForm/>} />
-          <Route exact path="profile" element={<Profile/>} />
-          <Route
-            exact
-            path={['profile/edit', 'profile/cars/new', 'profile/cars/:id/edit']}
-            element={<Modal />}
-          />
-        </Routes>
-          <Route exact path="/cars/:id" element={CarInfo} />
-        <FooterNav />
-      </main> */}
-    </Router>
+      <Routes>
+        {/* background && <Route path="cars/new" element={<Modal />} /> 
+        background && <Route path="login" element={<Modal />} /> 
+        background && <Route path="sign_up" element={<Modal />} />  */}
+        { background && <Route path="cars/new" element={<Modal />} /> }
+        { background && <Route path="login" element={<Modal />} /> }
+        { background && <Route path="sign_up" element={<Modal />} /> }
+      </Routes>
+    </>
   );
 };
 

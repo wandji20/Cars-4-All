@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons';
 import { logOutAction } from '../../redux/user/userActions';
 import { setToken } from '../../helpers/token';
 
 const NavMenu = (props) => {
+  const location = useLocation();
+
   const { toggle, handleToggleNav } = props;
   const pages = ['rentals', 'markets'];
   const featuredCars = ['', 'Sedan', 'Suv & Crossover', 'Van & Bus', 'Truck'];
@@ -107,12 +109,12 @@ const NavMenu = (props) => {
             && (
             <>
               <li>
-                <NavLink to="/login" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="/login" state={{ background: location }} onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Login</span>
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/sign_up" onClick={() => { handleToggleNav(); resetToggles(); }}>
+                <NavLink to="/sign_up" state={{ background: location }} onClick={() => { handleToggleNav(); resetToggles(); }}>
                   <span>Signup</span>
                 </NavLink>
               </li>

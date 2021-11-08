@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { postAuthentication } from '../../redux/user/userActions';
 
 const Login = () => {
-  const loggedIn = useSelector((state) => state.user.loggedIn);
+  // const loggedIn = useSelector((state) => state.user.loggedIn);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-
-  // const history = useHistory();
-  if (loggedIn) {
-    // history.goBack();
-  }
+  const location = useLocation();
+  console.log(location);
 
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
@@ -28,7 +25,7 @@ const Login = () => {
         <p className="text-sm ">
           <span className="block"> Don&apos;t have an account?</span>
           <span className="block">
-            <NavLink className="text-green-900" to="/sign_up">Sign Up</NavLink>
+            <NavLink className="text-green-900" to="/sign_up" state={{ background: location }}>Sign Up</NavLink>
           </span>
         </p>
       </div>
